@@ -3,11 +3,11 @@ import React from "react";
 import { Pagination } from "@material-ui/lab";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import { buildPager, PagerState } from "@coveo/headless";
+import { Pager as PagerType, buildPager, PagerState } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 
 export default class Pager extends React.Component {
-  private headlessPager: buildPager;
+  private headlessPager: PagerType;
   state: PagerState;
 
   constructor(props: any) {

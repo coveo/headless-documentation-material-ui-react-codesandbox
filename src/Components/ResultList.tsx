@@ -59,7 +59,7 @@ export default class ResultList extends React.Component {
         {this.state.results.map((result: Result) => {
           const template = this.headlessResultTemplateManager.selectTemplate(
             result
-          );
+          ) as any;
           return template(result);
         })}
       </List>
