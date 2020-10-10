@@ -1,2 +1,1 @@
-# temp_headless_sanxbox
-Created with CodeSandbox
+Intro example to headless using Material UI and React
