@@ -5,7 +5,7 @@ import { headlessEngine } from "../Engine";
 import { Box } from "@material-ui/core";
 
 export default class QuerySummary extends React.Component {
-  private headlessQuerySummary: typeof buildQuerySummary;
+  private headlessQuerySummary;
   state: QuerySummaryState;
 
   constructor(props: any) {
