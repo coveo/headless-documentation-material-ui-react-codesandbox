@@ -9,7 +9,7 @@ import { buildResultsPerPage, ResultsPerPageState } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 
 export default class ResultsPerPage extends React.Component {
-  private headlessResultsPerPage: typeof buildResultsPerPage;
+  private headlessResultsPerPage;
   state: ResultsPerPageState;
 
   constructor(props: any) {

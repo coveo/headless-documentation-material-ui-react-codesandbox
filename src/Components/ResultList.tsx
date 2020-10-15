@@ -11,13 +11,15 @@ import {
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 
+type Template = (result: Result) => any;
+
 function ListItemLink(props: any) {
   return <ListItem button component="a" {...props} />;
 }
 
 export default class ResultList extends React.Component {
-  private headlessResultList: typeof buildResultList;
-  private headlessResultTemplateManager: ResultTemplatesManager;
+  private headlessResultList;
+  private headlessResultTemplateManager;
   state: ResultListState;
 
   constructor(props: any) {
@@ -27,9 +29,9 @@ export default class ResultList extends React.Component {
 
     this.state = this.headlessResultList.state;
 
-    this.headlessResultTemplateManager = new ResultTemplatesManager<
-      React.ReactNode
-    >(headlessEngine);
+    this.headlessResultTemplateManager = new ResultTemplatesManager<Template>(
+      headlessEngine
+    );
     this.headlessResultTemplateManager.registerTemplates({
       conditions: [],
       content: (result: Result) => (
@@ -59,8 +61,8 @@ export default class ResultList extends React.Component {
         {this.state.results.map((result: Result) => {
           const template = this.headlessResultTemplateManager.selectTemplate(
             result
-          ) as any;
-          return template(result);
+          );
+          return template ? template(result) : null;
         })}
       </List>
     );

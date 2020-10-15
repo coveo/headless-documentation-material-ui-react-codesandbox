@@ -8,13 +8,13 @@ import QuerySummary from "./Components/QuerySummary";
 import ResultList from "./Components/ResultList";
 import Pager from "./Components/Pager";
 import ResultsPerPage from "./Components/ResultsPerPage";
-import { searchActions } from "@coveo/headless";
+import { SearchActions } from "@coveo/headless";
 import { headlessEngine } from "./Engine";
 
 export default class App extends React.Component {
   componentDidMount() {
     const { dispatch } = headlessEngine;
-    dispatch(searchActions.executeSearch(() => {}));
+    dispatch(SearchActions.executeSearch(() => {}));
   }
 
   render() {
