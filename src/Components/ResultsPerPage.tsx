@@ -5,11 +5,15 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
-import { buildResultsPerPage, ResultsPerPageState } from "@coveo/headless";
+import {
+  buildResultsPerPage,
+  ResultsPerPageState,
+  ResultsPerPage as ResultPerPageType
+} from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 
 export default class ResultsPerPage extends React.Component {
-  private headlessResultsPerPage;
+  private headlessResultsPerPage: ResultPerPageType;
   state: ResultsPerPageState;
 
   constructor(props: any) {

@@ -7,7 +7,8 @@ import {
   buildResultList,
   ResultTemplatesManager,
   Result,
-  ResultListState
+  ResultListState,
+  ResultList as ResultListType
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 
@@ -18,8 +19,8 @@ function ListItemLink(props: any) {
 }
 
 export default class ResultList extends React.Component {
-  private headlessResultList;
-  private headlessResultTemplateManager;
+  private headlessResultList: ResultListType;
+  private headlessResultTemplateManager: ResultTemplatesManager<Template>;
   state: ResultListState;
 
   constructor(props: any) {

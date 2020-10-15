@@ -14,7 +14,9 @@ import { headlessEngine } from "./Engine";
 export default class App extends React.Component {
   componentDidMount() {
     const { dispatch } = headlessEngine;
-    const action = SearchActions.executeSearch(AnalyticsActions.logInterfaceLoad()) as any;
+    const action = SearchActions.executeSearch(
+      AnalyticsActions.logInterfaceLoad()
+    ) as any;
     dispatch(action);
   }
 
