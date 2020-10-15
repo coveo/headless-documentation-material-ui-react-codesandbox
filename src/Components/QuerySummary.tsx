@@ -1,11 +1,15 @@
 /* eslint-disable no-use-before-define */
 import React from "react";
-import { buildQuerySummary, QuerySummaryState } from "@coveo/headless";
+import {
+  buildQuerySummary,
+  QuerySummaryState,
+  QuerySummary as QuerySummaryType
+} from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 import { Box } from "@material-ui/core";
 
 export default class QuerySummary extends React.Component {
-  private headlessQuerySummary: typeof buildQuerySummary;
+  private headlessQuerySummary: QuerySummaryType;
   state: QuerySummaryState;
 
   constructor(props: any) {
