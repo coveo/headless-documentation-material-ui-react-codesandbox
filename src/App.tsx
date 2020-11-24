@@ -16,7 +16,7 @@ export default class App extends React.Component {
     const { dispatch } = headlessEngine;
     const action = SearchActions.executeSearch(
       AnalyticsActions.logInterfaceLoad()
-    ) as any;
+    );
     dispatch(action);
   }
 
