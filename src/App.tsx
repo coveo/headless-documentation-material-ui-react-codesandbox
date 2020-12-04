@@ -7,14 +7,16 @@ import SearchBox from "./Components/SearchBox";
 import QuerySummary from "./Components/QuerySummary";
 import ResultList from "./Components/ResultList";
 import Pager from "./Components/Pager";
+import Facet from "./Components/Facet";
 import ResultsPerPage from "./Components/ResultsPerPage";
-import { searchActions } from "@coveo/headless";
+import { SearchActions } from "@coveo/headless";
 import { headlessEngine } from "./Engine";
+import SimplePopover from "./Components/Popover";
 
 export default class App extends React.Component {
   componentDidMount() {
     const { dispatch } = headlessEngine;
-    dispatch(searchActions.executeSearch(() => {}));
+    dispatch(SearchActions.executeSearch(() => {}));
   }
 
   render() {
@@ -25,6 +27,7 @@ export default class App extends React.Component {
             Coveo Headless + Material UI
           </Typography>
           <SearchBox />
+          <Facet title="Facet" />
           <QuerySummary />
           <ResultList />
           <Box my={4}>
