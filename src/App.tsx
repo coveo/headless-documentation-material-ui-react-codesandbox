@@ -8,13 +8,15 @@ import QuerySummary from "./Components/QuerySummary";
 import ResultList from "./Components/ResultList";
 import Pager from "./Components/Pager";
 import ResultsPerPage from "./Components/ResultsPerPage";
-import { searchActions } from "@coveo/headless";
+import { SearchActions } from "@coveo/headless";
 import { headlessEngine } from "./Engine";
+import CenteredTabs from "./Components/CenteredTabs";
+import HeadlessTab from "./Components/Tab";
 
 export default class App extends React.Component {
   componentDidMount() {
     const { dispatch } = headlessEngine;
-    dispatch(searchActions.executeSearch(() => {}));
+    dispatch(SearchActions.executeSearch(() => {}));
   }
 
   render() {
@@ -24,6 +26,18 @@ export default class App extends React.Component {
           <Typography variant="h4" component="h1" gutterBottom>
             Coveo Headless + Material UI
           </Typography>
+          <CenteredTabs>
+            <HeadlessTab label="All Content" expression="" />
+            <HeadlessTab
+              label="Countries"
+              expression='@source=="	
+              Coveo Sample - ListCountries"'
+            />
+            <HeadlessTab
+              label="BBC News Youtube"
+              expression='@source=="Coveo Samples - Youtube BBC News"'
+            />
+          </CenteredTabs>
           <SearchBox />
           <QuerySummary />
           <ResultList />
