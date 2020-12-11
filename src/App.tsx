@@ -11,7 +11,6 @@ import Facet from "./Components/Facet";
 import ResultsPerPage from "./Components/ResultsPerPage";
 import { SearchActions } from "@coveo/headless";
 import { headlessEngine } from "./Engine";
-import SimplePopover from "./Components/Popover";
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -22,14 +21,22 @@ export default class App extends React.Component {
   render() {
     return (
       <Container maxWidth="md">
-        <Box my={4}>
+        <Box my={3}>
           <Typography variant="h4" component="h1" gutterBottom>
             Coveo Headless + Material UI
           </Typography>
           <SearchBox />
-          <Facet title="Facet" />
-          <QuerySummary />
-          <ResultList />
+          <Box my={1}>
+            <Grid container>
+              <Grid item xs={4}>
+                <Facet title="Source" />
+              </Grid>
+              <Grid item xs={8}>
+                <QuerySummary />
+                <ResultList />
+              </Grid>
+            </Grid>
+          </Box>
           <Box my={4}>
             <Grid container>
               <Grid item xs={6}>
