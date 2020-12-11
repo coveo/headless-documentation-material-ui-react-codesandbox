@@ -29,7 +29,7 @@ export default class App extends React.Component {
           <Box my={1}>
             <Grid container>
               <Grid item xs={4}>
-                <Facet title="Source" />
+                <Facet title="Source" field="source" />
               </Grid>
               <Grid item xs={8}>
                 <QuerySummary />

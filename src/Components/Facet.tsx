@@ -16,6 +16,7 @@ import Box from "@material-ui/core/Box";
 
 interface IFacetProps {
   title: string;
+  field: string;
 }
 
 export default class Facet extends React.Component<IFacetProps, {}> {
@@ -28,7 +29,7 @@ export default class Facet extends React.Component<IFacetProps, {}> {
     this.headlessFacet = buildFacet(headlessEngine, {
       options: {
         numberOfValues: 3,
-        field: "source"
+        field: this.props.field
       }
     });
 
@@ -71,7 +72,7 @@ export default class Facet extends React.Component<IFacetProps, {}> {
             {this.state.values.map((value: FacetValue) => (
               <Box mb={1} key={value.value}>
                 <FormControlLabel
-                  label={value.value + " (" + value.numberOfResults + ")"}
+                  label={`${value.value} (${value.numberOfResults})`}
                   control={
                     <Checkbox
                       color="primary"
