@@ -2,7 +2,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { buildSearchBox, SearchBoxState } from "@coveo/headless";
+import { buildSearchBox, SearchBoxState, searchBoxOptionsSchema } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 
 export default class SearchBox extends React.Component {
