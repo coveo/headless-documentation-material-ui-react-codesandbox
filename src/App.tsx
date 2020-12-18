@@ -9,15 +9,16 @@ import ResultList from "./Components/ResultList";
 import Pager from "./Components/Pager";
 import Facet from "./Components/Facet";
 import ResultsPerPage from "./Components/ResultsPerPage";
-import { SearchActions } from "@coveo/headless";
+import { SearchActions, AnalyticsActions } from "@coveo/headless";
 import { headlessEngine } from "./Engine";
 import CenteredTabs from "./Components/CenteredTabs";
 import HeadlessTab from "./Components/Tab";
+import Sort from "./Components/Sort";
 
 export default class App extends React.Component {
   componentDidMount() {
     const { dispatch } = headlessEngine;
-    dispatch(SearchActions.executeSearch(() => {}));
+    dispatch(SearchActions.executeSearch(AnalyticsActions.logInterfaceLoad()));
   }
 
   render() {
@@ -46,7 +47,14 @@ export default class App extends React.Component {
                 <Facet title="Source" field="source" />
               </Grid>
               <Grid item xs={8}>
-                <QuerySummary />
+                <Grid container alignItems="flex-end">
+                  <Grid item xs={8}>
+                    <QuerySummary />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Sort />
+                  </Grid>
+                </Grid>
                 <ResultList />
               </Grid>
             </Grid>
