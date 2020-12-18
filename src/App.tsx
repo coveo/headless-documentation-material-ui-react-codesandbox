@@ -7,26 +7,58 @@ import SearchBox from "./Components/SearchBox";
 import QuerySummary from "./Components/QuerySummary";
 import ResultList from "./Components/ResultList";
 import Pager from "./Components/Pager";
+import Facet from "./Components/Facet";
 import ResultsPerPage from "./Components/ResultsPerPage";
-import { searchActions } from "@coveo/headless";
+import { SearchActions, AnalyticsActions } from "@coveo/headless";
 import { headlessEngine } from "./Engine";
+import CenteredTabs from "./Components/CenteredTabs";
+import HeadlessTab from "./Components/Tab";
+import Sort from "./Components/Sort";
 
 export default class App extends React.Component {
   componentDidMount() {
     const { dispatch } = headlessEngine;
-    dispatch(searchActions.executeSearch(() => {}));
+    dispatch(SearchActions.executeSearch(AnalyticsActions.logInterfaceLoad()));
   }
 
   render() {
     return (
       <Container maxWidth="md">
-        <Box my={4}>
+        <Box my={3}>
           <Typography variant="h4" component="h1" gutterBottom>
             Coveo Headless + Material UI
           </Typography>
+          <CenteredTabs>
+            <HeadlessTab label="All Content" expression="" />
+            <HeadlessTab
+              label="Countries"
+              expression='@source=="	
+              Coveo Sample - ListCountries"'
+            />
+            <HeadlessTab
+              label="BBC News Youtube"
+              expression='@source=="Coveo Samples - Youtube BBC News"'
+            />
+          </CenteredTabs>
           <SearchBox />
-          <QuerySummary />
-          <ResultList />
+          <Box my={1}>
+            <Grid container>
+              <Grid item xs={4}>
+                <Facet title="Source" field="source" />
+              </Grid>
+              <Grid item xs={8}>
+                <Grid container alignItems="flex-end">
+                  <Grid item xs={8}>
+                    <QuerySummary />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Sort />
+                  </Grid>
+                </Grid>
+                <ResultList />
+              </Grid>
+            </Grid>
+          </Box>
           <Box my={4}>
             <Grid container>
               <Grid item xs={6}>
