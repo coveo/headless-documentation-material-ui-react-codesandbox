@@ -5,7 +5,9 @@ import { ListItem, ListItemText, Box } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import {
   buildResultList,
+  ResultList as ResultListType,
   ResultTemplatesManager,
+  buildResultTemplatesManager,
   Result,
   ResultListState
 } from "@coveo/headless";
@@ -16,7 +18,7 @@ function ListItemLink(props: any) {
 }
 
 export default class ResultList extends React.Component {
-  private headlessResultList: typeof buildResultList;
+  private headlessResultList: ResultListType;
   private headlessResultTemplateManager: ResultTemplatesManager;
   state: ResultListState;
 
@@ -27,9 +29,9 @@ export default class ResultList extends React.Component {
 
     this.state = this.headlessResultList.state;
 
-    this.headlessResultTemplateManager = new ResultTemplatesManager<
-      React.ReactNode
-    >(headlessEngine);
+    this.headlessResultTemplateManager = buildResultTemplatesManager(
+      headlessEngine
+    );
     this.headlessResultTemplateManager.registerTemplates({
       conditions: [],
       content: (result: Result) => (
@@ -57,7 +59,7 @@ export default class ResultList extends React.Component {
     return (
       <List>
         {this.state.results.map((result: Result) => {
-          const template = this.headlessResultTemplateManager.selectTemplate(
+          const template: any = this.headlessResultTemplateManager.selectTemplate(
             result
           );
           return template(result);
