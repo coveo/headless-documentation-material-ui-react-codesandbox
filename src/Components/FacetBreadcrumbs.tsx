@@ -6,10 +6,19 @@ import {
   buildBreadcrumbManager
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
+import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import ClearIcon from "@material-ui/icons/Clear";
+
+const hoveredStyle = {
+  cursor: "pointer"
+};
+
+const clearStyle = {
+  fontSize: "1em"
+};
 
 // Currently, this component only displays breadcrumbs from basic facets.
 export default class FacetBreadcrumbs extends React.Component {
@@ -46,9 +55,16 @@ export default class FacetBreadcrumbs extends React.Component {
               onClick={() => value.deselect()}
               variant="caption"
               underline="none"
+              style={hoveredStyle}
             >
-              {value.value.value}
-              <ClearIcon fontSize="small" />
+              <Grid container>
+                <Grid item>
+                  <Box mt={0.3}>{value.value.value}</Box>
+                </Grid>
+                <Grid item>
+                  <ClearIcon fontSize="small" />
+                </Grid>
+              </Grid>
             </Link>
           </div>
         ))}
@@ -67,9 +83,9 @@ export default class FacetBreadcrumbs extends React.Component {
             <Button
               size="small"
               onClick={this.headlessBreadcrumbManager.deselectAll}
+              style={clearStyle}
             >
-              {" "}
-              Clear Filters
+              Clear All Filters
             </Button>
           )}
         </Grid>
