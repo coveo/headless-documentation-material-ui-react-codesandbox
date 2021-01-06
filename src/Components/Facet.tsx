@@ -76,6 +76,7 @@ export default class Facet extends React.Component<IFacetProps, {}> {
                   control={
                     <Checkbox
                       color="primary"
+                      checked={this.headlessFacet.isValueSelected(value)}
                       onChange={(event) => this.toggleSelect(value)}
                     />
                   }
