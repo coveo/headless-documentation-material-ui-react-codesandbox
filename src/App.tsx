@@ -47,7 +47,7 @@ export default class App extends React.Component {
             <Grid container>
               <Grid item xs={4}>
                 <Facet title="Source" field="source" />
-                <Facet title="Author" field="author" />
+                <Facet title="File Type" field="filetype" />
               </Grid>
               <Grid item xs={8}>
                 <Grid container alignItems="flex-end">

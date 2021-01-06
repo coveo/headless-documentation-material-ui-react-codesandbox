@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import ClearIcon from "@material-ui/icons/Clear";
 
+// Currently, this component only displays breadcrumbs from basic facets.
 export default class FacetBreadcrumbs extends React.Component {
   private headlessBreadcrumbManager: BreadcrumbManagerType;
   state: BreadcrumbManagerState;
@@ -22,6 +23,7 @@ export default class FacetBreadcrumbs extends React.Component {
 
     this.state = this.headlessBreadcrumbManager.state;
   }
+
   componentDidMount() {
     this.headlessBreadcrumbManager.subscribe(() => this.updateState());
   }
@@ -30,53 +32,35 @@ export default class FacetBreadcrumbs extends React.Component {
     this.setState(this.headlessBreadcrumbManager.state);
   }
 
-  getSelectedValues(key: string, objId: string) {
-    const selectedValuesObj: object = this.state[key][objId]["values"];
-    const selectedValues: Array<string> = [];
-    for (let selectedKey in selectedValuesObj) {
-      selectedValues.push(selectedValuesObj[selectedKey]);
-    }
-
-    return selectedValues;
+  getFacetBreadcrumbs() {
+    let breadcrumbs = this.state.facetBreadcrumbs;
+    return breadcrumbs.map((breadcrumb) => (
+      <div key={breadcrumb.field}>
+        <Typography>
+          {breadcrumb.field.charAt(0).toUpperCase() + breadcrumb.field.slice(1)}
+          :
+        </Typography>
+        {breadcrumb.values.map((value) => (
+          <div key={breadcrumb.field + value.value.value}>
+            <Link
+              onClick={() => value.deselect()}
+              variant="caption"
+              underline="none"
+            >
+              {value.value.value}
+              <ClearIcon fontSize="small" />
+            </Link>
+          </div>
+        ))}
+      </div>
+    ));
   }
 
   render() {
-    let breadcrumbs: object = {};
-    for (let key in this.state) {
-      const fieldObjs = this.state[key];
-
-      for (let objId in fieldObjs) {
-        if (!fieldObjs[objId]) {
-          continue;
-        }
-        const field: string = fieldObjs[objId]["field"];
-
-        breadcrumbs[field] = this.getSelectedValues(key, objId);
-      }
-    }
-
     return (
       <Grid container>
         <Grid item xs={10}>
-          {Object.keys(breadcrumbs).map((keyName, i) => (
-            <div key={keyName}>
-              <Typography>
-                {keyName.charAt(0).toUpperCase() + keyName.slice(1)}:
-              </Typography>
-              {breadcrumbs[keyName].map((value) => (
-                <div key={keyName + value.value.value}>
-                  <Link
-                    onClick={() => value.deselect()}
-                    variant="caption"
-                    underline="none"
-                  >
-                    {value.value.value}
-                    <ClearIcon fontSize="small" />
-                  </Link>
-                </div>
-              ))}
-            </div>
-          ))}
+          {this.getFacetBreadcrumbs()}
         </Grid>
         <Grid item xs={2}>
           {this.headlessBreadcrumbManager.hasBreadcrumbs() && (
