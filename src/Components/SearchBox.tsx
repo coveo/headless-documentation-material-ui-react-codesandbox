@@ -39,7 +39,7 @@ export default class SearchBox extends React.Component {
           this.headlessSearchBox.submit();
         }}
         options={this.state.suggestions.map(
-          (suggestion: any) => suggestion.value
+          (suggestion: any) => suggestion.rawValue
         )}
         freeSolo
         style={{ width: "auto" }}
