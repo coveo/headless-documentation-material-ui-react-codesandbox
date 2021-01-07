@@ -9,7 +9,6 @@ import ResultList from "./Components/ResultList";
 import Pager from "./Components/Pager";
 import Facet from "./Components/Facet";
 import ResultsPerPage from "./Components/ResultsPerPage";
-import FacetBreadcrumbs from "./Components/FacetBreadcrumbs";
 import { SearchActions, AnalyticsActions } from "@coveo/headless";
 import { headlessEngine } from "./Engine";
 import CenteredTabs from "./Components/CenteredTabs";
@@ -43,11 +42,9 @@ export default class App extends React.Component {
           </CenteredTabs>
           <SearchBox />
           <Box my={1}>
-            <FacetBreadcrumbs />
             <Grid container>
               <Grid item xs={4}>
                 <Facet title="Source" field="source" />
-                <Facet title="File Type" field="filetype" />
               </Grid>
               <Grid item xs={8}>
                 <Grid container alignItems="flex-end">

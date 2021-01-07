@@ -13,6 +13,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@material-ui/core/Box";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@material-ui/core/TextField";
 
 interface IFacetProps {
   title: string;
@@ -21,7 +23,9 @@ interface IFacetProps {
 
 export default class Facet extends React.Component<IFacetProps, {}> {
   private headlessFacet: FacetType;
-  state: FacetState;
+  state: FacetState & {
+    inputValue: string;
+  };
 
   constructor(props: any) {
     super(props);
@@ -29,11 +33,17 @@ export default class Facet extends React.Component<IFacetProps, {}> {
     this.headlessFacet = buildFacet(headlessEngine, {
       options: {
         numberOfValues: 3,
-        field: this.props.field
+        field: this.props.field,
+        facetSearch: {
+          numberOfValues: 1000
+        }
       }
     });
 
-    this.state = this.headlessFacet.state;
+    this.state = {
+      ...this.headlessFacet.state,
+      inputValue: ""
+    };
   }
   componentDidMount() {
     this.headlessFacet.subscribe(() => this.updateState());
@@ -75,8 +85,8 @@ export default class Facet extends React.Component<IFacetProps, {}> {
                   label={`${value.value} (${value.numberOfResults})`}
                   control={
                     <Checkbox
-                      color="primary"
                       checked={this.headlessFacet.isValueSelected(value)}
+                      color="primary"
                       onChange={(event) => this.toggleSelect(value)}
                     />
                   }
@@ -84,25 +94,55 @@ export default class Facet extends React.Component<IFacetProps, {}> {
               </Box>
             ))}
           </FormGroup>
-          {this.state.canShowMoreValues && (
-            <Button
-              onClick={() => {
-                this.showMore();
-              }}
-            >
-              Show More
-            </Button>
-          )}
-          {this.state.canShowLessValues && (
-            <Button
-              onClick={() => {
-                this.showLess();
-              }}
-            >
-              Show Less
-            </Button>
-          )}
         </FormControl>
+        {this.state.canShowMoreValues && (
+          <Autocomplete
+            inputValue={this.state.inputValue}
+            onInputChange={(_, newInputValue) => {
+              this.setState({ inputValue: newInputValue });
+              this.headlessFacet.facetSearch.updateText(newInputValue);
+              this.headlessFacet.facetSearch.search();
+            }}
+            onChange={(_, chosenValue: any) => {
+              if (chosenValue != null) {
+                this.headlessFacet.facetSearch.select(chosenValue);
+              }
+              this.setState({ inputValue: "" });
+            }}
+            options={this.state.facetSearch.values}
+            getOptionLabel={(option: any) => option.displayValue}
+            getOptionSelected={() => true}
+            blurOnSelect
+            clearOnBlur
+            style={{ width: "auto" }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder="Search"
+                variant="outlined"
+                size="small"
+              />
+            )}
+          />
+        )}
+        {this.state.canShowMoreValues && (
+          <Button
+            onClick={() => {
+              this.showMore();
+            }}
+          >
+            Show More
+          </Button>
+        )}
+        {this.state.canShowLessValues && (
+          <Button
+            onClick={() => {
+              this.showLess();
+            }}
+          >
+            Show Less
+          </Button>
+        )}
       </Box>
     );
   }
