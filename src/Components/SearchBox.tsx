@@ -16,7 +16,20 @@ export default class SearchBox extends React.Component {
   constructor(props: any) {
     super(props);
 
-    this.headlessSearchBox = buildSearchBox(headlessEngine);
+    this.headlessSearchBox = buildSearchBox(headlessEngine, {
+      options: {
+        highlightOptions: {
+          notMatchDelimiters: {
+            open: "<strong>",
+            close: "</strong>"
+          },
+          correctionDelimiters: {
+            open: "<i>",
+            close: "</i>"
+          }
+        }
+      }
+    });
     this.state = this.headlessSearchBox.state;
   }
 
@@ -38,9 +51,15 @@ export default class SearchBox extends React.Component {
         onChange={() => {
           this.headlessSearchBox.submit();
         }}
-        options={this.state.suggestions.map(
-          (suggestion: any) => suggestion.rawValue
-        )}
+        options={this.state.suggestions}
+        getOptionLabel={(option) => option.rawValue}
+        renderOption={(option) => {
+          return (
+            <div
+              dangerouslySetInnerHTML={{ __html: option.highlightedValue }}
+            ></div>
+          );
+        }}
         freeSolo
         style={{ width: "auto" }}
         renderInput={(params) => (

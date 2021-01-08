@@ -13,6 +13,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@material-ui/core/Box";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@material-ui/core/TextField";
 
 interface IFacetProps {
   title: string;
@@ -21,7 +23,9 @@ interface IFacetProps {
 
 export default class Facet extends React.Component<IFacetProps, {}> {
   private headlessFacet: FacetType;
-  state: FacetState;
+  state: FacetState & {
+    inputValue: "";
+  };
 
   constructor(props: any) {
     super(props);
@@ -33,7 +37,10 @@ export default class Facet extends React.Component<IFacetProps, {}> {
       }
     });
 
-    this.state = this.headlessFacet.state;
+    this.state = {
+      ...this.headlessFacet.state,
+      inputValue: ""
+    };
   }
   componentDidMount() {
     this.headlessFacet.subscribe(() => this.updateState());
