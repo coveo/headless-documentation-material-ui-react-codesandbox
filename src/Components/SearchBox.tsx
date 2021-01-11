@@ -52,7 +52,9 @@ export default class SearchBox extends React.Component {
           this.headlessSearchBox.submit();
         }}
         options={this.state.suggestions}
-        getOptionLabel={(option) => option.rawValue}
+        getOptionLabel={(option) => {
+          return typeof option === "object" ? option.rawValue : option;
+        }}
         renderOption={(option) => {
           return (
             <div
