@@ -33,6 +33,8 @@ export default class ResultList extends React.Component {
       conditions: [],
       content: (result: Result) => (
         <Box key={result.uniqueId}>
+          {/* In this implementation, the ResultLink component is
+           responsible for logging a 'click' event to Coveo UA */}
           <ResultLink result={result} />
           <Divider />
         </Box>
