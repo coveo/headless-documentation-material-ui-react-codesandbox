@@ -1,7 +1,8 @@
 /* eslint-disable no-use-before-define */
 import React from "react";
 import List from "@material-ui/core/List";
-import { ListItem, ListItemText, Box } from "@material-ui/core";
+import { Box } from "@material-ui/core";
+import ResultLink from "./ResultLink"
 import Divider from "@material-ui/core/Divider";
 import {
   buildResultList,
@@ -12,10 +13,6 @@ import {
   ResultListState
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
-
-function ListItemLink(props: any) {
-  return <ListItem button component="a" {...props} />;
-}
 
 export default class ResultList extends React.Component {
   private headlessResultList: ResultListType;
@@ -36,11 +33,7 @@ export default class ResultList extends React.Component {
       conditions: [],
       content: (result: Result) => (
         <Box key={result.uniqueId}>
-          <ListItem disableGutters>
-            <ListItemLink disableGutters href={result.clickUri} target="_blank">
-              <ListItemText primary={result.title} secondary={result.excerpt} />
-            </ListItemLink>
-          </ListItem>
+          <ResultLink result={result} />
           <Divider />
         </Box>
       )
