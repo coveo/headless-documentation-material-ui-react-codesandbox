@@ -2,7 +2,7 @@
 import React from "react";
 import List from "@material-ui/core/List";
 import { Box } from "@material-ui/core";
-import ResultLink from "./ResultLink"
+import ResultLink from "./ResultLink";
 import Divider from "@material-ui/core/Divider";
 import {
   buildResultList,
@@ -10,7 +10,7 @@ import {
   ResultTemplatesManager,
   buildResultTemplatesManager,
   Result,
-  ResultListState
+  ResultListState,
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 
@@ -36,7 +36,7 @@ export default class ResultList extends React.Component {
           <ResultLink result={result} />
           <Divider />
         </Box>
-      )
+      ),
     });
   }
 
