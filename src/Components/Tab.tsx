@@ -7,7 +7,7 @@ import { headlessEngine } from "../Engine";
 interface ITabProps extends TabProps {
   id: string;
   expression: string;
-  selectedByDefault?: Boolean;
+  selected?: boolean;
 }
 
 export default class HeadlessTab extends React.Component<ITabProps, {}> {
@@ -23,7 +23,7 @@ export default class HeadlessTab extends React.Component<ITabProps, {}> {
       },
     });
     this.state = this.headlessTab.state;
-    if (this.props.selectedByDefault) {
+    if (this.props.selected) {
       this.setOriginLevel2();
     }
   }
@@ -45,7 +45,7 @@ export default class HeadlessTab extends React.Component<ITabProps, {}> {
     headlessEngine.dispatch(
       ConfigurationActions.setOriginLevel2({ originLevel2: this.props.id })
     );
-  }
+  };
 
   render() {
     return (
