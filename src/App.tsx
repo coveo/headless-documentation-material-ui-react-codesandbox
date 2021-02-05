@@ -47,7 +47,7 @@ export default class App extends React.Component {
             <FacetBreadcrumbs />
             <Grid container>
               <Grid item xs={4}>
-                <DateFacet title="Date" field="sysdate" />
+                <DateFacet title="Date" field="sysdate" delimiter="/" />
                 <Facet title="Source" field="source" />
                 <Facet title="File Type" field="filetype" />
               </Grid>

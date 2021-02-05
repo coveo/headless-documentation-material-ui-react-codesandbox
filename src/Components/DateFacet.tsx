@@ -16,6 +16,7 @@ import Box from "@material-ui/core/Box";
 interface IRangeDateFacetProps {
   title: string;
   field: string;
+  delimiter?: string;
 }
 
 export default class DateFacet extends React.Component<
@@ -59,12 +60,32 @@ export default class DateFacet extends React.Component<
     this.headlessDateFacet.toggleSelect(value);
   }
 
+  getDelimitedDate(date: string) {
+    if (this.props.delimiter) {
+      return date.split(this.props.delimiter)[0];
+    }
+    return date;
+  }
+
+  getStartDate(value: DateFacetValue) {
+    return this.getDelimitedDate(value.start);
+  }
+
+  getEndDate(value: DateFacetValue) {
+    return this.getDelimitedDate(value.start);
+  }
+
+  getLabel(value: DateFacetValue) {
+    return `${this.getStartDate(value)}-${this.getEndDate(value)} (${
+      value.numberOfResults
+    })`;
+  }
+
   getFacetValues() {
     return this.state.values.map((value: DateFacetValue) => (
       <Box mb={1} key={value.start}>
         <FormControlLabel
-          label={`${value.start.split("/")[0]}-${value.end.split("/")[0]} (
-            ${value.numberOfResults})`}
+          label={this.getLabel(value)}
           control={
             <Checkbox
               checked={this.headlessDateFacet.isValueSelected(value)}
