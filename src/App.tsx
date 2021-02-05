@@ -30,14 +30,21 @@ export default class App extends React.Component {
             Coveo Headless + Material UI
           </Typography>
           <CenteredTabs>
-            <HeadlessTab label="All Content" expression="" />
             <HeadlessTab
+              selected={true}
+              id="All"
+              label="All Content"
+              expression=""
+            />
+            <HeadlessTab
+              id="Countries"
               label="Countries"
-              expression='@source=="	
+              expression='@source=="
               Coveo Sample - ListCountries"'
             />
             <HeadlessTab
-              label="BBC News Youtube"
+              id="YouTube"
+              label="BBC News YouTube"
               expression='@source=="Coveo Samples - Youtube BBC News"'
             />
           </CenteredTabs>
