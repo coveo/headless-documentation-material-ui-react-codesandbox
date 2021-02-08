@@ -72,7 +72,7 @@ export default class DateFacet extends React.Component<
   }
 
   getEndDate(value: DateFacetValue) {
-    return this.getDelimitedDate(value.start);
+    return this.getDelimitedDate(value.end);
   }
 
   getLabel(value: DateFacetValue) {
