@@ -109,7 +109,7 @@ export default class CategoryFacet extends React.Component<
     const align = this.parentAlign();
 
     return this.state.values.map((value) => (
-      <div onClick={() => this.headlessCategoryFacet.toggleSelect(value)}>
+      <div key={value.value} onClick={() => this.headlessCategoryFacet.toggleSelect(value)}>
         <Box position="relative" left={align}>
           <Typography align="left" style={hoveredStyle}>
             {value.value} ({value.numberOfResults})
