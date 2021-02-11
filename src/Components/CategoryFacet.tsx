@@ -57,11 +57,7 @@ export default class CategoryFacet extends React.Component<
 
   //sends left position offset value to getValues <Box> depending on state
   parentAlign() {
-    let align = "0%";
-    if (this.state.hasActiveValues) {
-      align = "20%";
-    }
-    return align;
+    return this.state.hasActiveValues ? "20%" : "0%";
   }
 
   getClearButton() {
