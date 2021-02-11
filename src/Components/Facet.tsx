@@ -16,7 +16,7 @@ import Box from "@material-ui/core/Box";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 
-interface IFacetProps {
+export interface IFacetProps {
   title: string;
   field: string;
 }
