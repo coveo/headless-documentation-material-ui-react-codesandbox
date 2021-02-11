@@ -82,20 +82,23 @@ export default class DateFacet extends React.Component<
   }
 
   getFacetValues() {
-    return this.state.values.map((value: DateFacetValue) => (
-      <Box mb={1} key={value.start}>
-        <FormControlLabel
-          label={this.getLabel(value)}
-          control={
-            <Checkbox
-              checked={this.headlessDateFacet.isValueSelected(value)}
-              color="primary"
-              onChange={(event) => this.toggleSelect(value)}
+    return this.state.values.map(
+      (value: DateFacetValue) =>
+        value.numberOfResults !== 0 && (
+          <Box mb={1} key={value.start}>
+            <FormControlLabel
+              label={this.getLabel(value)}
+              control={
+                <Checkbox
+                  checked={this.headlessDateFacet.isValueSelected(value)}
+                  color="primary"
+                  onChange={(event) => this.toggleSelect(value)}
+                />
+              }
             />
-          }
-        />
-      </Box>
-    ));
+          </Box>
+        )
+    );
   }
 
   render() {

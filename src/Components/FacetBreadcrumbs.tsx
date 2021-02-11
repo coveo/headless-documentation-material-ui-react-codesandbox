@@ -41,6 +41,36 @@ export default class FacetBreadcrumbs extends React.Component {
     this.setState(this.headlessBreadcrumbManager.state);
   }
 
+  getDateFacetBreadcrumbs() {
+    let dateBreadcrumbs = this.state.dateFacetBreadcrumbs;
+    return dateBreadcrumbs.map((dateBreadcrumb) => (
+      <div key={dateBreadcrumb.field}>
+        {dateBreadcrumb.values.map((value) => (
+          <div key={dateBreadcrumb.field + value.value.start}>
+            <Link
+              onClick={() => value.deselect()}
+              variant="caption"
+              underline="none"
+              style={hoveredStyle}
+            >
+              <Grid container>
+                <Grid item>
+                  <Box mt={0.3}>
+                    {value.value.start.split("@")[0]}-
+                    {value.value.end.split("@")[0]}
+                  </Box>
+                </Grid>
+                <Grid item>
+                  <ClearIcon fontSize="small" />
+                </Grid>
+              </Grid>
+            </Link>
+          </div>
+        ))}
+      </div>
+    ));
+  }
+
   getFacetBreadcrumbs() {
     let breadcrumbs = this.state.facetBreadcrumbs;
     return breadcrumbs.map((breadcrumb) => (
@@ -76,6 +106,7 @@ export default class FacetBreadcrumbs extends React.Component {
     return (
       <Grid container>
         <Grid item xs={10}>
+          {this.getDateFacetBreadcrumbs()}
           {this.getFacetBreadcrumbs()}
         </Grid>
         <Grid item xs={2}>
