@@ -6,7 +6,6 @@ import {
   buildCategoryFacet
 } from "@coveo/headless";
 
-// import { makeStyles } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import FormLabel from "@material-ui/core/FormLabel";
