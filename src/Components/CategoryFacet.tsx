@@ -3,14 +3,19 @@ import { headlessEngine } from "../Engine";
 import {
   CategoryFacet as CategoryFacetType,
   CategoryFacetState,
-  buildCategoryFacet
+  buildCategoryFacet,
+  CategoryFacetValue
 } from "@coveo/headless";
 
+// import { makeStyles } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import FormLabel from "@material-ui/core/FormLabel";
 import Box from "@material-ui/core/Box";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const hoveredStyle = {
   cursor: "pointer",
@@ -20,15 +25,21 @@ const hoveredStyle = {
 interface ICategoryFacetProps {
   title: string;
   field: string;
-  // basePath: [];
+  subtitle?: string;
 }
 
 export default class CategoryFacet extends React.Component<
   ICategoryFacetProps,
   {}
 > {
+  public static defaultProps = {
+    subtitle: "All Categories"
+  };
+
   private headlessCategoryFacet: CategoryFacetType;
-  state: CategoryFacetState;
+  state: CategoryFacetState & {
+    inputValue: "";
+  };
 
   constructor(props: any) {
     super(props);
@@ -43,6 +54,7 @@ export default class CategoryFacet extends React.Component<
 
     this.state = this.headlessCategoryFacet.state;
   }
+
   componentDidMount() {
     this.headlessCategoryFacet.subscribe(() => this.updateState());
   }
@@ -55,6 +67,17 @@ export default class CategoryFacet extends React.Component<
     this.setState(this.headlessCategoryFacet.state);
   }
 
+  toggleSelect(value: CategoryFacetValue) {
+    this.headlessCategoryFacet.toggleSelect(value);
+  }
+
+  showMore() {
+    this.headlessCategoryFacet.showMoreValues();
+  }
+
+  showLess() {
+    this.headlessCategoryFacet.showLessValues();
+  }
   //sends left position offset value to getValues <Box> depending on state
   parentAlign() {
     return this.state.hasActiveValues ? "20%" : "0%";
@@ -70,7 +93,7 @@ export default class CategoryFacet extends React.Component<
           <IconButton edge="start" size="small">
             <ChevronLeftIcon />
           </IconButton>
-          All Categories
+          {this.props.subtitle}
         </Typography>
       </div>
     );
@@ -105,7 +128,10 @@ export default class CategoryFacet extends React.Component<
     const align = this.parentAlign();
 
     return this.state.values.map((value) => (
-      <div key={value.value} onClick={() => this.headlessCategoryFacet.toggleSelect(value)}>
+      <div
+        key={value.value}
+        onClick={() => this.headlessCategoryFacet.toggleSelect(value)}
+      >
         <Box position="relative" left={align}>
           <Typography align="left" style={hoveredStyle}>
             {value.value} ({value.numberOfResults})
@@ -113,6 +139,63 @@ export default class CategoryFacet extends React.Component<
         </Box>
       </div>
     ));
+  }
+
+  getCategoryFacetSearch() {
+    return (
+      <Autocomplete
+        inputValue={this.state.inputValue}
+        onInputChange={(_, newInputValue) => {
+          this.setState({ inputValue: newInputValue });
+          this.headlessCategoryFacet.facetSearch.updateText(newInputValue);
+          this.headlessCategoryFacet.facetSearch.search();
+        }}
+        onChange={(_, chosenValue: any) => {
+          if (chosenValue != null) {
+            this.headlessCategoryFacet.facetSearch.select(chosenValue);
+          }
+          this.setState({ inputValue: "" });
+        }}
+        options={this.state.facetSearch.values}
+        getOptionLabel={(option: any) => option.displayValue}
+        getOptionSelected={() => true}
+        blurOnSelect
+        clearOnBlur
+        style={{ width: "auto" }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Search"
+            variant="outlined"
+            size="small"
+          />
+        )}
+      />
+    );
+  }
+
+  getShowMore() {
+    return (
+      <Button
+        onClick={() => {
+          this.showMore();
+        }}
+      >
+        Show More
+      </Button>
+    );
+  }
+
+  getShowLess() {
+    return (
+      <Button
+        onClick={() => {
+          this.showLess();
+        }}
+      >
+        Show Less
+      </Button>
+    );
   }
 
   render() {
@@ -126,6 +209,8 @@ export default class CategoryFacet extends React.Component<
         {this.getClearButton()}
         {this.getParents()}
         {this.getValues()}
+        {this.state.canShowMoreValues && this.getShowMore()}
+        {this.state.canShowLessValues && this.getShowLess()}
       </Box>
     );
   }

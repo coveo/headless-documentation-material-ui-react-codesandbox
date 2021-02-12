@@ -31,14 +31,21 @@ export default class App extends React.Component {
             Coveo Headless + Material UI
           </Typography>
           <CenteredTabs>
-            <HeadlessTab label="All Content" expression="" />
             <HeadlessTab
+              selected={true}
+              id="All"
+              label="All Content"
+              expression=""
+            />
+            <HeadlessTab
+              id="Countries"
               label="Countries"
-              expression='@source=="	
+              expression='@source=="
               Coveo Sample - ListCountries"'
             />
             <HeadlessTab
-              label="BBC News Youtube"
+              id="YouTube"
+              label="BBC News YouTube"
               expression='@source=="Coveo Samples - Youtube BBC News"'
             />
           </CenteredTabs>
@@ -47,12 +54,13 @@ export default class App extends React.Component {
             <FacetBreadcrumbs />
             <Grid container>
               <Grid item xs={4}>
-              <CategoryFacet
-                  title="Source"
-                  field="atlgeographicalhierarchy"
-                />
-                <Facet title="Source" field="source" />
+                <Facet title="Source" field="atlgeographicalhierarchy" />
                 <Facet title="File Type" field="filetype" />
+                <CategoryFacet
+                  title="Location"
+                  field="atlgeographicalhierarchy"
+                  subtitle="All Continents"
+                />
               </Grid>
               <Grid item xs={8}>
                 <Grid container alignItems="flex-end">
