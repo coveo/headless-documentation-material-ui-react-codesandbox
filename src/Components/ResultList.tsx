@@ -4,13 +4,14 @@ import List from "@material-ui/core/List";
 import { Box } from "@material-ui/core";
 import ResultLink from "./ResultLink";
 import Divider from "@material-ui/core/Divider";
+import { ListItem, ListItemText } from "@material-ui/core";
 import {
   buildResultList,
   ResultList as ResultListType,
   ResultTemplatesManager,
   buildResultTemplatesManager,
   Result,
-  ResultListState,
+  ResultListState
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 
@@ -22,7 +23,11 @@ export default class ResultList extends React.Component {
   constructor(props: any) {
     super(props);
 
-    this.headlessResultList = buildResultList(headlessEngine);
+    this.headlessResultList = buildResultList(headlessEngine, {
+      options: {
+        fieldsToInclude: ["date"]
+      }
+    });
 
     this.state = this.headlessResultList.state;
 
@@ -36,9 +41,12 @@ export default class ResultList extends React.Component {
           {/* In this implementation, the ResultLink component is
            responsible for logging a 'click' event to Coveo UA */}
           <ResultLink result={result} />
+          <ListItem disableGutters>
+            <ListItemText secondary={this.getDate(result)} />
+          </ListItem>
           <Divider />
         </Box>
-      ),
+      )
     });
   }
 
@@ -48,6 +56,11 @@ export default class ResultList extends React.Component {
 
   updateState() {
     this.setState(this.headlessResultList.state);
+  }
+
+  getDate(result: Result) {
+    const date: Date = new Date(result.raw.date);
+    return date.toLocaleDateString();
   }
 
   render() {
