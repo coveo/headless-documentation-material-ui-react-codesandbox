@@ -72,7 +72,7 @@ export default class FacetBreadcrumbs extends React.Component {
   }
 
   getFacetBreadcrumbs() {
-    let breadcrumbs = this.state.facetBreadcrumbs;
+    const breadcrumbs = this.state.facetBreadcrumbs;
     return breadcrumbs.map((breadcrumb) => (
       <div key={breadcrumb.field}>
         <Typography>

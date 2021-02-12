@@ -59,7 +59,7 @@ export default class ResultList extends React.Component {
   }
 
   getDate(result: Result) {
-    let date: Date = new Date(result.raw.date);
+    const date: Date = new Date(result.raw.date);
     return date.toLocaleDateString();
   }
 
