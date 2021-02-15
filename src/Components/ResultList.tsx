@@ -1,8 +1,10 @@
 /* eslint-disable no-use-before-define */
 import React from "react";
 import List from "@material-ui/core/List";
-import { ListItem, ListItemText, Box } from "@material-ui/core";
+import { Box } from "@material-ui/core";
+import ResultLink from "./ResultLink";
 import Divider from "@material-ui/core/Divider";
+import { ListItem, ListItemText } from "@material-ui/core";
 import {
   buildResultList,
   ResultList as ResultListType,
@@ -13,10 +15,6 @@ import {
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 
-function ListItemLink(props: any) {
-  return <ListItem button component="a" {...props} />;
-}
-
 export default class ResultList extends React.Component {
   private headlessResultList: ResultListType;
   private headlessResultTemplateManager: ResultTemplatesManager;
@@ -25,7 +23,11 @@ export default class ResultList extends React.Component {
   constructor(props: any) {
     super(props);
 
-    this.headlessResultList = buildResultList(headlessEngine);
+    this.headlessResultList = buildResultList(headlessEngine, {
+      options: {
+        fieldsToInclude: ["date"]
+      }
+    });
 
     this.state = this.headlessResultList.state;
 
@@ -36,10 +38,11 @@ export default class ResultList extends React.Component {
       conditions: [],
       content: (result: Result) => (
         <Box key={result.uniqueId}>
+          {/* In this implementation, the ResultLink component is
+           responsible for logging a 'click' event to Coveo UA */}
+          <ResultLink result={result} />
           <ListItem disableGutters>
-            <ListItemLink disableGutters href={result.clickUri} target="_blank">
-              <ListItemText primary={result.title} secondary={result.excerpt} />
-            </ListItemLink>
+            <ListItemText secondary={this.getDate(result)} />
           </ListItem>
           <Divider />
         </Box>
@@ -53,6 +56,11 @@ export default class ResultList extends React.Component {
 
   updateState() {
     this.setState(this.headlessResultList.state);
+  }
+
+  getDate(result: Result) {
+    const date: Date = new Date(result.raw.date);
+    return date.toLocaleDateString();
   }
 
   render() {

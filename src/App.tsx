@@ -8,6 +8,7 @@ import QuerySummary from "./Components/QuerySummary";
 import ResultList from "./Components/ResultList";
 import Pager from "./Components/Pager";
 import Facet from "./Components/Facet";
+import DateFacet from "./Components/DateFacet";
 import ResultsPerPage from "./Components/ResultsPerPage";
 import FacetBreadcrumbs from "./Components/FacetBreadcrumbs";
 import { SearchActions, AnalyticsActions } from "@coveo/headless";
@@ -30,14 +31,21 @@ export default class App extends React.Component {
             Coveo Headless + Material UI
           </Typography>
           <CenteredTabs>
-            <HeadlessTab label="All Content" expression="" />
             <HeadlessTab
+              selected={true}
+              id="All"
+              label="All Content"
+              expression=""
+            />
+            <HeadlessTab
+              id="Countries"
               label="Countries"
-              expression='@source=="	
+              expression='@source=="
               Coveo Sample - ListCountries"'
             />
             <HeadlessTab
-              label="BBC News Youtube"
+              id="YouTube"
+              label="BBC News YouTube"
               expression='@source=="Coveo Samples - Youtube BBC News"'
             />
           </CenteredTabs>
@@ -48,6 +56,7 @@ export default class App extends React.Component {
               <Grid item xs={4}>
                 <Facet title="Source" field="source" />
                 <Facet title="File Type" field="filetype" />
+                <DateFacet title="Date" field="sysdate" delimiter="/" />
               </Grid>
               <Grid item xs={8}>
                 <Grid container alignItems="flex-end">
