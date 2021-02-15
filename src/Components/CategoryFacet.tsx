@@ -141,38 +141,6 @@ export default class CategoryFacet extends React.Component<
     ));
   }
 
-  getCategoryFacetSearch() {
-    return (
-      <Autocomplete
-        inputValue={this.state.inputValue}
-        onInputChange={(_, newInputValue) => {
-          this.setState({ inputValue: newInputValue });
-          this.headlessCategoryFacet.facetSearch.updateText(newInputValue);
-          this.headlessCategoryFacet.facetSearch.search();
-        }}
-        onChange={(_, chosenValue: any) => {
-          if (chosenValue != null) {
-            this.headlessCategoryFacet.facetSearch.select(chosenValue);
-          }
-          this.setState({ inputValue: "" });
-        }}
-        options={this.state.facetSearch.values}
-        getOptionLabel={(option: any) => option.displayValue}
-        getOptionSelected={() => true}
-        blurOnSelect
-        clearOnBlur
-        style={{ width: "auto" }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            placeholder="Search"
-            variant="outlined"
-            size="small"
-          />
-        )}
-      />
-    );
-  }
 
   getShowMore() {
     return (

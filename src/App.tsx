@@ -54,7 +54,7 @@ export default class App extends React.Component {
             <FacetBreadcrumbs />
             <Grid container>
               <Grid item xs={4}>
-                <Facet title="Source" field="atlgeographicalhierarchy" />
+                <Facet title="Source" field="source" />
                 <Facet title="File Type" field="filetype" />
                 <CategoryFacet
                   title="Location"
