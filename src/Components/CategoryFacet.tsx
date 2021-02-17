@@ -7,15 +7,13 @@ import {
   CategoryFacetValue
 } from "@coveo/headless";
 
-// import { makeStyles } from '@material-ui/core/styles';
+
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import FormLabel from "@material-ui/core/FormLabel";
 import Box from "@material-ui/core/Box";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const hoveredStyle = {
   cursor: "pointer",
@@ -44,6 +42,8 @@ export default class CategoryFacet extends React.Component<
   constructor(props: any) {
     super(props);
 
+    // a typical atlgeographicalhierarchy field value for a city would appear: Continent;Continent|Country;
+    // for example Washington, DC. would be: North America;North America|United States;
     this.headlessCategoryFacet = buildCategoryFacet(headlessEngine, {
       options: {
         numberOfValues: 3,
@@ -79,7 +79,7 @@ export default class CategoryFacet extends React.Component<
     this.headlessCategoryFacet.showLessValues();
   }
   //sends left position offset value to getValues <Box> depending on state
-  parentAlign() {
+  valuesAlign() {
     return this.state.hasActiveValues ? "20%" : "0%";
   }
 
@@ -125,7 +125,7 @@ export default class CategoryFacet extends React.Component<
 
   getValues() {
     //variable to recieve position offset
-    const align = this.parentAlign();
+    const align = this.valuesAlign();
 
     return this.state.values.map((value) => (
       <div
