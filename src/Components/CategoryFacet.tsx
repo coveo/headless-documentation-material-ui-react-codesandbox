@@ -123,7 +123,7 @@ export default class CategoryFacet extends React.Component<
   }
 
   getValues() {
-    //variable to recieve position offset
+
     const align = this.valuesAlign();
 
     return this.state.values.map((value) => (
