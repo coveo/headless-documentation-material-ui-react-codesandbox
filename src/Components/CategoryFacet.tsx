@@ -78,7 +78,8 @@ export default class CategoryFacet extends React.Component<
   showLess() {
     this.headlessCategoryFacet.showLessValues();
   }
-  //sends left position offset value to getValues <Box> depending on state
+
+  // Calculates the left position offset for values depending on if there are any parent values.
   parentAlign() {
     return this.state.hasActiveValues ? "20%" : "0%";
   }
