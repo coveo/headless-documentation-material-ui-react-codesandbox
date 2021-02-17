@@ -7,7 +7,6 @@ import {
   CategoryFacetValue
 } from "@coveo/headless";
 
-
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import FormLabel from "@material-ui/core/FormLabel";
