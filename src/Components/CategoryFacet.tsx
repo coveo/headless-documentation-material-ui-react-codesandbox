@@ -105,6 +105,7 @@ export default class CategoryFacet extends React.Component<
       const isLast = i === parents.length - 1;
       return (
         <div
+          key={parent.value}
           onClick={() =>
             !isLast && this.headlessCategoryFacet.toggleSelect(parent)
           }
