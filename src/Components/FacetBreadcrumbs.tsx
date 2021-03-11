@@ -40,7 +40,7 @@ export default class FacetBreadcrumbs extends React.Component {
   updateState() {
     this.setState(this.headlessBreadcrumbManager.state);
   }
-  
+
   getCategoryFacetBreadcrumbs() {
     const breadcrumbs = this.state.categoryFacetBreadcrumbs;
     return breadcrumbs.map((categoryBreadcrumb) => {
@@ -148,7 +148,7 @@ export default class FacetBreadcrumbs extends React.Component {
           {this.getCategoryFacetBreadcrumbs()}
         </Grid>
         <Grid item xs={2}>
-          {this.headlessBreadcrumbManager.hasBreadcrumbs() && (
+          {this.headlessBreadcrumbManager.state.hasBreadcrumbs && (
             <Button
               size="small"
               onClick={this.headlessBreadcrumbManager.deselectAll}
