@@ -41,6 +41,43 @@ export default class FacetBreadcrumbs extends React.Component {
     this.setState(this.headlessBreadcrumbManager.state);
   }
 
+  getCategoryFacetBreadcrumbs() {
+    const breadcrumbs = this.state.categoryFacetBreadcrumbs;
+    return breadcrumbs.map((categoryBreadcrumb) => {
+      const breadcrumbValue = categoryBreadcrumb.path
+        .map((value) => value.value)
+        .join(" / ");
+
+      return (
+        <div key={categoryBreadcrumb.field}>
+          <Typography>
+            {categoryBreadcrumb.field.charAt(0).toUpperCase() +
+              categoryBreadcrumb.field.slice(1)}
+            :
+          </Typography>
+
+          <div key={breadcrumbValue}>
+            <Link
+              onClick={() => categoryBreadcrumb.deselect()}
+              variant="caption"
+              underline="none"
+              style={hoveredStyle}
+            >
+              <Grid container>
+                <Grid item>
+                  <Box mt={0.3}>{breadcrumbValue}</Box>
+                </Grid>
+                <Grid item>
+                  <ClearIcon fontSize="small" />
+                </Grid>
+              </Grid>
+            </Link>
+          </div>
+        </div>
+      );
+    });
+  }
+
   getDateFacetBreadcrumbs() {
     let dateBreadcrumbs = this.state.dateFacetBreadcrumbs;
     return dateBreadcrumbs.map((dateBreadcrumb) => (
@@ -108,9 +145,10 @@ export default class FacetBreadcrumbs extends React.Component {
         <Grid item xs={10}>
           {this.getDateFacetBreadcrumbs()}
           {this.getFacetBreadcrumbs()}
+          {this.getCategoryFacetBreadcrumbs()}
         </Grid>
         <Grid item xs={2}>
-          {this.headlessBreadcrumbManager.hasBreadcrumbs() && (
+          {this.headlessBreadcrumbManager.state.hasBreadcrumbs && (
             <Button
               size="small"
               onClick={this.headlessBreadcrumbManager.deselectAll}
