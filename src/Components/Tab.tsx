@@ -19,8 +19,8 @@ export default class HeadlessTab extends React.Component<ITabProps, {}> {
 
     this.headlessTab = buildTab(headlessEngine, {
       options: {
-        expression: this.props.expression,
-      },
+        expression: this.props.expression
+      }
     });
     this.state = this.headlessTab.state;
     if (this.props.selected) {
