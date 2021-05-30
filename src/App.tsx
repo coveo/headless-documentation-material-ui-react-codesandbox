@@ -10,6 +10,7 @@ import Pager from "./Components/Pager";
 import Facet from "./Components/Facet";
 import DateFacet from "./Components/DateFacet";
 import CategoryFacet from "./Components/CategoryFacet";
+import RelevanceInspector from "./Components/RelevanceInspector";
 import ResultsPerPage from "./Components/ResultsPerPage";
 import FacetBreadcrumbs from "./Components/FacetBreadcrumbs";
 import { SearchActions, AnalyticsActions } from "@coveo/headless";
@@ -17,7 +18,6 @@ import { headlessEngine } from "./Engine";
 import CenteredTabs from "./Components/CenteredTabs";
 import HeadlessTab from "./Components/Tab";
 import Sort from "./Components/Sort";
-import RelevanceInspector from "./Components/RelevanceInspector";
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -73,6 +73,9 @@ export default class App extends React.Component {
                   <Grid item xs={4}>
                     <Sort />
                   </Grid>
+                  <Grid item xs={6}>
+                    <RelevanceInspector />
+                  </Grid>
                 </Grid>
                 <ResultList />
               </Grid>
@@ -89,9 +92,6 @@ export default class App extends React.Component {
             </Grid>
           </Box>
         </Box>
-        <Grid item xs={6}>
-          <RelevanceInspector />
-        </Grid>
       </Container>
     );
   }

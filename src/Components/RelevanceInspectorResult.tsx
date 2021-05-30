@@ -1,12 +1,21 @@
 /* eslint-disable no-use-before-define */
 import React from "react";
 import {
+  AnalyticsActions,
   buildRelevanceInspector,
   RelevanceInspector as RelevanceInspectorType,
-  RelevanceInspectorState
+  RelevanceInspectorState,
+  SearchActions
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
-import { Avatar } from "@material-ui/core";
+import {
+  Avatar,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  Switch,
+  Typography
+} from "@material-ui/core";
 import { Result } from "@coveo/headless";
 import BugReportIcon from "@material-ui/icons/BugReport";
 import RelevanceInspectorWindow from "../Components/RelevanceInspectorWindow";
@@ -20,14 +29,17 @@ export default class RelevanceInspectorResult extends React.Component<
   IDebugProps,
   {}
 > {
-  _isMounted = false;
   private headlessRelevanceInspector: RelevanceInspectorType;
+  private result: Result;
+  private index: number;
   state: RelevanceInspectorState & {
     openModal: false;
   };
 
   constructor(props: IDebugProps) {
     super(props);
+    this.result = props.result;
+    this.index = props.index;
     this.headlessRelevanceInspector = buildRelevanceInspector(headlessEngine, {
       options: {
         automaticallyLogInformation: false
@@ -40,19 +52,11 @@ export default class RelevanceInspectorResult extends React.Component<
   }
 
   componentDidMount() {
-    this._isMounted = true;
     this.headlessRelevanceInspector.subscribe(() => this.updateState());
   }
 
-  componentWillUnmount() {
-    this._isMounted = false;
-    this.headlessRelevanceInspector.subscribe(() => {});
-  }
-
   updateState() {
-    if (this._isMounted) {
-      this.setState(this.headlessRelevanceInspector.state);
-    }
+    this.setState(this.headlessRelevanceInspector.state);
   }
 
   avatarStyle = {
@@ -81,7 +85,8 @@ export default class RelevanceInspectorResult extends React.Component<
   };
 
   getJson = () => {
-    return this.headlessRelevanceInspector.state.rankingInformation;
+    return this.headlessRelevanceInspector.state.rankingInformation[this.index]
+      .ranking;
   };
 
   render() {
@@ -91,7 +96,7 @@ export default class RelevanceInspectorResult extends React.Component<
           <>
             <Avatar style={this.avatarStyle}>
               <BugReportIcon
-                onClick={() => {
+                onClick={(e) => {
                   this.setDebugWindow();
                 }}
               />

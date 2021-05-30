@@ -4,6 +4,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import ReactJson from "react-json-view";
+import { withStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -30,6 +31,11 @@ function RelevanceInspectorWindow(props) {
   //const { classes } = this.props;
   const classes = useStyles();
   const { open, setOpen, json, expandAll } = props;
+  const handleOpen = () => {
+    console.log("handleOpen");
+    setOpen(true);
+    //this.setState({ open: false });
+  };
 
   const handleClose = () => {
     console.log("handleClose");

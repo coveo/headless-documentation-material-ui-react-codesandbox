@@ -60,10 +60,6 @@ export default class ResultList extends React.Component {
     this.setState(this.headlessResultList.state);
   }
 
-  componentWillUnmount() {
-    this.headlessResultList.subscribe(() => {});
-  }
-
   getDate(result: Result) {
     const date: Date = new Date(result.raw.date);
     return date.toLocaleDateString();
@@ -72,11 +68,11 @@ export default class ResultList extends React.Component {
   render() {
     return (
       <List>
-        {this.state.results.map((result: Result) => {
+        {this.state.results.map((result: Result, index) => {
           const template: any = this.headlessResultTemplateManager.selectTemplate(
             result
           );
-          return template(result);
+          return template(result, index);
         })}
       </List>
     );
