@@ -50,6 +50,7 @@ export default class RelevanceInspector extends React.Component {
   componentWillUnmount() {
     this.headlessRelevanceInspector.subscribe(() => {});
   }
+
   updateState() {
     this.setState(this.headlessRelevanceInspector.state);
   }

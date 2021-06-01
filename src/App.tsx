@@ -10,6 +10,7 @@ import Pager from "./Components/Pager";
 import Facet from "./Components/Facet";
 import DateFacet from "./Components/DateFacet";
 import CategoryFacet from "./Components/CategoryFacet";
+import RelevanceInspector from "./Components/RelevanceInspector";
 import ResultsPerPage from "./Components/ResultsPerPage";
 import FacetBreadcrumbs from "./Components/FacetBreadcrumbs";
 import { SearchActions, AnalyticsActions } from "@coveo/headless";
@@ -71,6 +72,9 @@ export default class App extends React.Component {
                   </Grid>
                   <Grid item xs={4}>
                     <Sort />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <RelevanceInspector />
                   </Grid>
                 </Grid>
                 <ResultList />
