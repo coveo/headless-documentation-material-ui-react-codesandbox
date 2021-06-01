@@ -14,6 +14,7 @@ import {
   ResultListState
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
+import RelevanceInspectorResult from "./RelevanceInspectorResult";
 
 export default class ResultList extends React.Component {
   private headlessResultList: ResultListType;
@@ -36,11 +37,12 @@ export default class ResultList extends React.Component {
     );
     this.headlessResultTemplateManager.registerTemplates({
       conditions: [],
-      content: (result: Result) => (
+      content: (result: Result, index: number) => (
         <Box key={result.uniqueId}>
           {/* In this implementation, the ResultLink component is
            responsible for logging a 'click' event to Coveo UA */}
           <ResultLink result={result} />
+          <RelevanceInspectorResult result={result} index={index} />
           <ListItem disableGutters>
             <ListItemText secondary={this.getDate(result)} />
           </ListItem>
@@ -66,11 +68,11 @@ export default class ResultList extends React.Component {
   render() {
     return (
       <List>
-        {this.state.results.map((result: Result) => {
+        {this.state.results.map((result: Result, index) => {
           const template: any = this.headlessResultTemplateManager.selectTemplate(
             result
           );
-          return template(result);
+          return template(result, index);
         })}
       </List>
     );

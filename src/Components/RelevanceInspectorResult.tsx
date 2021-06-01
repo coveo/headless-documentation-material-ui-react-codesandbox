@@ -7,6 +7,21 @@ import {
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 import { Avatar } from "@material-ui/core";
+  AnalyticsActions,
+  buildRelevanceInspector,
+  RelevanceInspector as RelevanceInspectorType,
+  RelevanceInspectorState,
+  SearchActions
+} from "@coveo/headless";
+import { headlessEngine } from "../Engine";
+import {
+  Avatar,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  Switch,
+  Typography
+} from "@material-ui/core";
 import { Result } from "@coveo/headless";
 import BugReportIcon from "@material-ui/icons/BugReport";
 import RelevanceInspectorWindow from "../Components/RelevanceInspectorWindow";
@@ -24,6 +39,7 @@ export default class RelevanceInspectorResult extends React.Component<
   private result: Result;
   private index: number;
   private _isMounted = false;
+
   state: RelevanceInspectorState & {
     openModal: false;
   };
