@@ -113,7 +113,7 @@ export default class RelevanceInspector extends React.Component {
     return (
       <Typography component="div">
         <Grid component="label" container alignItems="center" spacing={1}>
-          <Grid item>Debug Info: </Grid>
+          <Grid item>Allow debug info: </Grid>
           <FormGroup row>
             <FormControlLabel
               control={
@@ -128,18 +128,17 @@ export default class RelevanceInspector extends React.Component {
             {this.getExecuteQueryControl()}
           </FormGroup>
         </Grid>
-        {this.headlessRelevanceInspector.state.isEnabled ? (
-          <>
+        {this.headlessRelevanceInspector.state.isEnabled && (
+          <Grid component="label" container alignItems="center" spacing={1}>
+            <Grid item>Print debug info: </Grid>
             <Avatar style={this.avatarStyle}>
               <BugReportIcon
-                onClick={(e) => {
+                onClick={() => {
                   console.log(this.headlessRelevanceInspector.state);
                 }}
               />
             </Avatar>
-          </>
-        ) : (
-          <></>
+          </Grid>
         )}
       </Typography>
     );
