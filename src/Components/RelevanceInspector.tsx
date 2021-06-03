@@ -17,7 +17,6 @@ import {
   Typography
 } from "@material-ui/core";
 import BugReportIcon from "@material-ui/icons/BugReport";
-import RelevanceInspectorWindow from "../Components/RelevanceInspectorWindow";
 
 export default class RelevanceInspector extends React.Component {
   private headlessRelevanceInspector: RelevanceInspectorType;
@@ -45,6 +44,10 @@ export default class RelevanceInspector extends React.Component {
 
   componentDidMount() {
     this.headlessRelevanceInspector.subscribe(() => this.updateState());
+  }
+
+  componentWillUnmount() {
+    this.headlessRelevanceInspector.subscribe(() => {});
   }
 
   updateState() {
@@ -106,22 +109,6 @@ export default class RelevanceInspector extends React.Component {
     }
   }
 
-  setDebugWindow() {
-    if (this.state.openModal) {
-      this.setState({ openModal: false });
-    } else {
-      this.setState({ openModal: true });
-    }
-  }
-
-  applyDebugWindow = (open: boolean) => {
-    if (open) {
-      this.setState({ openModal: true });
-    } else {
-      this.setState({ openModal: false });
-    }
-  };
-
   render() {
     return (
       <Typography component="div">
@@ -146,15 +133,10 @@ export default class RelevanceInspector extends React.Component {
             <Avatar style={this.avatarStyle}>
               <BugReportIcon
                 onClick={(e) => {
-                  this.setDebugWindow();
+                  console.log(this.headlessRelevanceInspector.state);
                 }}
               />
             </Avatar>
-            <RelevanceInspectorWindow
-              open={this.state.openModal}
-              setOpen={this.applyDebugWindow}
-              json={this.headlessRelevanceInspector.state}
-            ></RelevanceInspectorWindow>
           </>
         ) : (
           <></>
