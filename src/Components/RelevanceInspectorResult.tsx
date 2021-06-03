@@ -9,7 +9,6 @@ import { headlessEngine } from "../Engine";
 import { Avatar } from "@material-ui/core";
 import { Result } from "@coveo/headless";
 import BugReportIcon from "@material-ui/icons/BugReport";
-import RelevanceInspectorWindow from "../Components/RelevanceInspectorWindow";
 
 interface IDebugProps {
   result: Result;
@@ -64,22 +63,6 @@ export default class RelevanceInspectorResult extends React.Component<
     return this.headlessRelevanceInspector.state.isEnabled;
   }
 
-  setDebugWindow() {
-    if (this.state.openModal) {
-      this.setState({ openModal: false });
-    } else {
-      this.setState({ openModal: true });
-    }
-  }
-
-  applyDebugWindow = (open: boolean) => {
-    if (open) {
-      this.setState({ openModal: true });
-    } else {
-      this.setState({ openModal: false });
-    }
-  };
-
   getJson = () => {
     return this.headlessRelevanceInspector.state.rankingInformation;
   };
@@ -92,16 +75,10 @@ export default class RelevanceInspectorResult extends React.Component<
             <Avatar style={this.avatarStyle}>
               <BugReportIcon
                 onClick={() => {
-                  this.setDebugWindow();
+                  console.log(this.headlessRelevanceInspector.state);
                 }}
               />
             </Avatar>
-            <RelevanceInspectorWindow
-              open={this.state.openModal}
-              expandAll={true}
-              setOpen={this.applyDebugWindow}
-              json={this.getJson()}
-            ></RelevanceInspectorWindow>
           </>
         ) : (
           <></>
