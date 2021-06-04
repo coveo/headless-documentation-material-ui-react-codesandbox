@@ -14,7 +14,6 @@ import {
   ResultListState
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
-import RelevanceInspectorResult from "./RelevanceInspectorResult";
 
 export default class ResultList extends React.Component {
   private headlessResultList: ResultListType;
@@ -42,7 +41,6 @@ export default class ResultList extends React.Component {
           {/* In this implementation, the ResultLink component is
            responsible for logging a 'click' event to Coveo UA */}
           <ResultLink result={result} />
-          <RelevanceInspectorResult result={result} index={index} />
           <ListItem disableGutters>
             <ListItemText secondary={this.getDate(result)} />
           </ListItem>
