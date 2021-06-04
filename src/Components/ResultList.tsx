@@ -36,7 +36,7 @@ export default class ResultList extends React.Component {
     );
     this.headlessResultTemplateManager.registerTemplates({
       conditions: [],
-      content: (result: Result) => (
+      content: (result: Result, index: number) => (
         <Box key={result.uniqueId}>
           {/* In this implementation, the ResultLink component is
            responsible for logging a 'click' event to Coveo UA */}
@@ -56,6 +56,10 @@ export default class ResultList extends React.Component {
 
   updateState() {
     this.setState(this.headlessResultList.state);
+  }
+
+  componentWillUnmount() {
+    this.headlessResultList.subscribe(() => {});
   }
 
   getDate(result: Result) {

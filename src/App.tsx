@@ -17,6 +17,7 @@ import { headlessEngine } from "./Engine";
 import CenteredTabs from "./Components/CenteredTabs";
 import HeadlessTab from "./Components/Tab";
 import Sort from "./Components/Sort";
+import RelevanceInspector from "./Components/RelevanceInspector";
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -88,6 +89,9 @@ export default class App extends React.Component {
             </Grid>
           </Box>
         </Box>
+        <Grid item xs={6}>
+          <RelevanceInspector />
+        </Grid>
       </Container>
     );
   }
