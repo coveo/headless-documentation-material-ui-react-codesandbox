@@ -1,31 +1,25 @@
 /* eslint-disable no-use-before-define */
 import React from "react";
 import {
-  AnalyticsActions,
   buildRelevanceInspector,
   RelevanceInspector as RelevanceInspectorType,
   RelevanceInspectorState,
-  SearchActions
+  Unsubscribe
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 import {
-  Avatar,
   FormControlLabel,
   FormGroup,
   Grid,
   Switch,
   Typography
 } from "@material-ui/core";
-import BugReportIcon from "@material-ui/icons/BugReport";
 
 export default class RelevanceInspector extends React.Component {
   private headlessRelevanceInspector: RelevanceInspectorType;
-  private hideExecuteQuery: boolean;
 
-  state: RelevanceInspectorState & {
-    executeQueryOnChange: true;
-    openModal: false;
-  };
+  state: RelevanceInspectorState;
+  unsubscribe!: Unsubscribe;
 
   constructor(props: any) {
     super(props);
@@ -34,112 +28,55 @@ export default class RelevanceInspector extends React.Component {
         automaticallyLogInformation: false
       }
     });
-    this.hideExecuteQuery = true;
-    this.state = {
-      ...this.headlessRelevanceInspector.state,
-      executeQueryOnChange: true,
-      openModal: false
-    };
+    this.state = this.headlessRelevanceInspector.state;
   }
 
   componentDidMount() {
-    this.headlessRelevanceInspector.subscribe(() => this.updateState());
+    this.unsubscribe = this.headlessRelevanceInspector.subscribe(() =>
+      this.updateState()
+    );
+  }
+
+  componentDidUpdate() {
+    if (this.state.isEnabled) {
+      console.info("Debug info: ", this.state);
+    }
   }
 
   componentWillUnmount() {
-    this.headlessRelevanceInspector.subscribe(() => {});
+    this.unsubscribe();
   }
 
   updateState() {
     this.setState(this.headlessRelevanceInspector.state);
   }
 
-  avatarStyle = {
-    width: "30px",
-    height: "30px"
-  };
-
-  setDebug(debug: boolean) {
-    if (debug) {
-      this.headlessRelevanceInspector.enable();
-    } else {
-      this.headlessRelevanceInspector.disable();
-    }
-    if (this.state.executeQueryOnChange) {
-      headlessEngine.dispatch(
-        SearchActions.executeSearch(AnalyticsActions.logInterfaceLoad())
-      );
-    }
-  }
-
   switchDebug = () => {
-    if (this.debug()) {
-      this.setDebug(false);
+    if (this.state.isEnabled) {
+      this.headlessRelevanceInspector.disable();
     } else {
-      this.setDebug(true);
+      this.headlessRelevanceInspector.enable();
     }
   };
-
-  switchExecuteQuery = () => {
-    if (this.state.executeQueryOnChange) {
-      this.setState({ executeQueryOnChange: false });
-    } else {
-      this.setState({ executeQueryOnChange: true });
-    }
-  };
-
-  debug() {
-    return this.headlessRelevanceInspector.state.isEnabled;
-  }
-
-  getExecuteQueryControl() {
-    if (!this.hideExecuteQuery) {
-      return (
-        <FormControlLabel
-          control={
-            <Switch
-              checked={this.state.executeQueryOnChange}
-              onChange={this.switchExecuteQuery}
-              name="checkDebugExecute"
-            />
-          }
-          label="Execute Query"
-        />
-      );
-    }
-  }
 
   render() {
     return (
       <Typography component="div">
         <Grid component="label" container alignItems="center" spacing={1}>
-          <Grid item>Allow debug info: </Grid>
+          <Grid item>Debug info: </Grid>
           <FormGroup row>
             <FormControlLabel
               control={
                 <Switch
-                  checked={this.headlessRelevanceInspector.state.isEnabled}
+                  checked={this.state.isEnabled}
                   onChange={this.switchDebug}
                   name="checkDebug"
                 />
               }
               label=""
             />
-            {this.getExecuteQueryControl()}
           </FormGroup>
         </Grid>
-        {this.headlessRelevanceInspector.state.isEnabled && (
-          <Grid component="label" container alignItems="center" spacing={1}>
-            <Grid item>Print debug info: </Grid>
-            <Avatar style={this.avatarStyle}>
-              <BugReportIcon
-                onClick={() => {
-                  console.log(this.headlessRelevanceInspector.state);
-                }}
-              />
-            </Avatar>
-          </Grid>
-        )}
       </Typography>
     );
   }
