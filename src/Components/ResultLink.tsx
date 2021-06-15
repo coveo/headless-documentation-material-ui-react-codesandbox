@@ -1,4 +1,4 @@
-import { Result, ResultAnalyticsActions } from "@coveo/headless";
+import { Result, loadClickAnalyticsActions } from "@coveo/headless";
 import React from "react";
 import { ListItem, ListItemText } from "@material-ui/core";
 import { headlessEngine } from "../Engine";
@@ -27,7 +27,7 @@ export default class ResultLink extends React.Component<ILinkProps, {}> {
     }
     this.wasOpened = true;
     headlessEngine.dispatch(
-      ResultAnalyticsActions.logDocumentOpen(this.result)
+      loadClickAnalyticsActions(headlessEngine).logDocumentOpen(this.result)
     );
   };
 
