@@ -1,12 +1,7 @@
 /* eslint-disable no-use-before-define */
 import React from "react";
 import { Tab as MaterialUITab, TabProps } from "@material-ui/core/";
-import {
-  buildTab,
-  loadConfigurationActions,
-  Tab,
-  TabState
-} from "@coveo/headless";
+import { buildTab, Tab, TabState } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 
 interface ITabProps extends TabProps {
@@ -29,9 +24,6 @@ export default class HeadlessTab extends React.Component<ITabProps, {}> {
       }
     });
     this.state = this.headlessTab.state;
-    if (this.props.selected) {
-      this.setOriginLevel2();
-    }
   }
 
   componentDidMount() {
@@ -43,16 +35,7 @@ export default class HeadlessTab extends React.Component<ITabProps, {}> {
   }
 
   selectTab = () => {
-    this.setOriginLevel2();
     this.headlessTab.select();
-  };
-
-  setOriginLevel2 = () => {
-    headlessEngine.dispatch(
-      loadConfigurationActions(headlessEngine).setOriginLevel2({
-        originLevel2: this.props.id
-      })
-    );
   };
 
   render() {
