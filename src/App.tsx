@@ -12,7 +12,7 @@ import DateFacet from "./Components/DateFacet";
 import CategoryFacet from "./Components/CategoryFacet";
 import ResultsPerPage from "./Components/ResultsPerPage";
 import FacetBreadcrumbs from "./Components/FacetBreadcrumbs";
-import { SearchActions, AnalyticsActions } from "@coveo/headless";
+import { loadSearchAnalyticsActions, loadSearchActions } from "@coveo/headless";
 import { headlessEngine } from "./Engine";
 import CenteredTabs from "./Components/CenteredTabs";
 import HeadlessTab from "./Components/Tab";
@@ -21,8 +21,10 @@ import RelevanceInspector from "./Components/RelevanceInspector";
 
 export default class App extends React.Component {
   componentDidMount() {
-    const { dispatch } = headlessEngine;
-    dispatch(SearchActions.executeSearch(AnalyticsActions.logInterfaceLoad()));
+    const { logInterfaceLoad } = loadSearchAnalyticsActions(headlessEngine);
+    const { executeSearch } = loadSearchActions(headlessEngine);
+
+    headlessEngine.dispatch(executeSearch(logInterfaceLoad()));
   }
 
   render() {
