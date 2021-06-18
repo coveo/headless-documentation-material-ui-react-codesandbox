@@ -1,4 +1,8 @@
-import { Result, ResultAnalyticsActions } from "@coveo/headless";
+import {
+  buildInteractiveResult,
+  InteractiveResult,
+  Result
+} from "@coveo/headless";
 import React from "react";
 import { ListItem, ListItemText } from "@material-ui/core";
 import { headlessEngine } from "../Engine";
@@ -12,24 +16,16 @@ interface ILinkProps {
 }
 
 export default class ResultLink extends React.Component<ILinkProps, {}> {
+  private interactiveResult: InteractiveResult;
   private result: Result;
-  private wasOpened: Boolean;
 
   constructor(props: ILinkProps) {
     super(props);
     this.result = props.result;
-    this.wasOpened = false;
+    this.interactiveResult = buildInteractiveResult(headlessEngine, {
+      options: { result: props.result }
+    });
   }
-
-  onOpen = () => {
-    if (this.wasOpened) {
-      return;
-    }
-    this.wasOpened = true;
-    headlessEngine.dispatch(
-      ResultAnalyticsActions.logDocumentOpen(this.result)
-    );
-  };
 
   render() {
     return (
@@ -38,7 +34,7 @@ export default class ResultLink extends React.Component<ILinkProps, {}> {
           disableGutters
           href={this.result.clickUri}
           target="_blank"
-          onClick={this.onOpen}
+          onClick={() => this.interactiveResult.select()}
         >
           <ListItemText
             primary={this.result.title}
