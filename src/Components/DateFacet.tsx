@@ -3,7 +3,7 @@ import {
   DateFacet as DateFacetType,
   DateFacetState,
   buildDateFacet,
-  DateFacetValue
+  DateFacetValue,
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 import { IFacetProps } from "./Facet";
@@ -34,13 +34,13 @@ export default class DateFacet extends React.Component<
       options: {
         numberOfValues: 3,
         field: this.props.field,
-        generateAutomaticRanges: true
-      }
+        generateAutomaticRanges: true,
+      },
     });
 
     this.state = {
       ...this.headlessDateFacet.state,
-      inputValue: ""
+      inputValue: "",
     };
   }
   componentDidMount() {
@@ -102,7 +102,7 @@ export default class DateFacet extends React.Component<
 
   render() {
     return (
-      <Box mt={5} mr={3} p={1} bgcolor="#5D7289">
+      <Box mt={5} mr={3} p={1} bgcolor="#E5E8E8">
         <FormControl component="fieldset">
           <Box mb={1}>
             <FormLabel component="legend" color="primary">
