@@ -20,7 +20,6 @@ const clearStyle = {
   fontSize: "1em"
 };
 
-// Currently, this component only displays breadcrumbs from basic facets.
 export default class FacetBreadcrumbs extends React.Component {
   private headlessBreadcrumbManager: BreadcrumbManagerType;
   state: BreadcrumbManagerState;
