@@ -12,7 +12,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          branch: "csb-version-${{ github.event.client_payload.headless_version }}"
+          branch: "csb-headless-${{ github.event.client_payload.headless_version }}"
       - name: Setup Ruby in runner
         uses: actions/setup-ruby@v1
         with:
@@ -27,7 +27,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
           title: "Generate Headless CSB Demo v${{ github.event.client_payload.headless_version }}"
-          branch: "csb-version-${{ github.event.client_payload.headless_version }}"
-          author: ${{ secrets.AUTHOR }}
+          branch: "csb-headless-${{ github.event.client_payload.headless_version }}"
           commit-message: "Update version"
           assignees: dlutzCoveo
