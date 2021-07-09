@@ -10,7 +10,7 @@ jobs:
       - name: Make a new Branch
         uses: peterjgrainger/action-create-branch@b48b0ca0e307c9b56f059b70274984ffeaa90a43
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           branch: "version-${{ github.event.client_payload.headless_version }}"
       - name: Setup Ruby in runner
@@ -24,7 +24,7 @@ jobs:
       - name: Create PR for new branch
         uses: gr2m/create-or-update-pull-request-action@cbfed2a38aedceab8d9fc0d9ac14890fc181d39e
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           title: "Generate Headless CSB Demo v${{ github.event.client_payload.headless_version }}"
           branch: "version-${{ github.event.client_payload.headless_version }}"
