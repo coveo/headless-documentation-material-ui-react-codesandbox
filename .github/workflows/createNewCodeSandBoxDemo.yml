@@ -19,7 +19,7 @@ jobs:
           ruby-version: '2.6'
       - name: Run script to update package.json on new branch
         run: |
-          cd scripts
+          cd .github/scripts
           ruby update_package.rb ${{ github.event.client_payload.headless_version }}
       - name: Create PR for new branch
         uses: gr2m/create-or-update-pull-request-action@cbfed2a38aedceab8d9fc0d9ac14890fc181d39e
