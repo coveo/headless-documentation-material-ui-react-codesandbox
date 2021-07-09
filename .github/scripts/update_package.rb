@@ -3,7 +3,7 @@ class UpdatePackage
 
     def initialize(version)
       @version = version
-      @package = JSON.parse(File.read('../package.json'))
+      @package = JSON.parse(File.read('../../package.json'))
     end
 
     def write
