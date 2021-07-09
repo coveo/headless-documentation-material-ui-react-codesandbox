@@ -28,5 +28,6 @@ jobs:
         with:
           title: "Generate Headless CSB Demo v${{ github.event.client_payload.headless_version }}"
           branch: "version-${{ github.event.client_payload.headless_version }}"
+          author: ${{ secrets.AUTHOR }}
           commit-message: "Update version"
           assignees: dlutzCoveo
