@@ -31,9 +31,17 @@ export default class App extends React.Component {
     return (
       <Container maxWidth="md">
         <Box my={3}>
-          <Typography color="primary" variant="h4" component="h1" gutterBottom>
-            Coveo Headless + Material UI
-          </Typography>
+          <Box bgcolor="#E5E8E8" py={3}>
+            <Typography
+              align="center"
+              color="textSecondary"
+              variant="h4"
+              component="h1"
+              gutterBottom
+            >
+              Coveo Headless + Material UI
+            </Typography>
+          </Box>
           <CenteredTabs>
             <HeadlessTab
               selected={true}
