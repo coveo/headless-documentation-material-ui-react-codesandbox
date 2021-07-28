@@ -11,34 +11,30 @@ const theme = createMuiTheme({
     },
   },
   palette: {
+    type: "light",
     text: {
-      primary: "#282829",
-      secondary: "#451C5C",
+      // You can easily change the overall text color
+      // primary: '#282829',
+      // secondary: '#E5E8E8',
     },
-    type: "dark",
     primary: {
-      light: "#00634F",
-      main: "#f58020",
-      dark: "#2E45BA",
+      main: "#2e45ba",
     },
     secondary: {
-      light: "#1CEBCF",
-      main: "#FFE300",
-      dark: "#F05245",
+      main: "#004990",
     },
     error: {
-      main: "#F05245",
+      main: "#F05205",
     },
     background: {
-      paper: "#00ADFF",
-      default: "##FFFFFF",
-    },
-    action: {
-      selected: "#FFE300",
+      default: "#fff",
     },
   },
   typography: {
-    fontFamily: "Gibson",
+    fontFamily: "Avenir, Helvetica, Arial, sans-serif",
+    // Material-UI uses rem units for the font size. This will change the base size for the entire search page
+    // More info at https://material-ui.com/customization/typography/#font-size
+    fontSize: 17,
   },
 });
 
