@@ -1,160 +1,103 @@
-import React from "react";
-import {
-  Facet as FacetType,
-  FacetState,
-  buildFacet,
-  FacetValue,
-} from "@coveo/headless";
-import { headlessEngine } from "../Engine";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import Box from "@material-ui/core/Box";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import TextField from "@material-ui/core/TextField";
+import {FunctionComponent, useEffect, useState, useContext} from 'react';
+import {Facet as HeadlessFacet, buildFacet, FacetValue} from '@coveo/headless';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import Box from '@material-ui/core/Box';
+import List from '@material-ui/core/List';
+import './Facet.css';
+import {Divider, ListItem, ListItemText, Typography} from '@material-ui/core';
+import EngineContext from '../common/engineContext';
 
-export interface IFacetProps {
+interface FacetProps {
   title: string;
   field: string;
 }
 
-export default class Facet extends React.Component<IFacetProps, {}> {
-  private headlessFacet: FacetType;
-  state: FacetState & {
-    inputValue: "";
+interface FacetRendererProps extends FacetProps {
+  controller: HeadlessFacet;
+}
+
+const FacetRenderer: FunctionComponent<FacetRendererProps> = (props) => {
+  const {controller} = props;
+  const [state, setState] = useState(controller.state);
+
+  useEffect(
+    () => controller.subscribe(() => setState(controller.state)),
+    [controller]
+  );
+
+  const toggleSelect = (value: FacetValue) => {
+    controller.toggleSelect(value);
   };
 
-  constructor(props: any) {
-    super(props);
+  const showMore = () => {
+    controller.showMoreValues();
+  };
 
-    this.headlessFacet = buildFacet(headlessEngine, {
-      options: {
-        numberOfValues: 3,
-        field: this.props.field,
-      },
-    });
+  const showLess = () => {
+    controller.showLessValues();
+  };
 
-    this.state = {
-      ...this.headlessFacet.state,
-      inputValue: "",
-    };
-  }
-  componentDidMount() {
-    this.headlessFacet.subscribe(() => this.updateState());
-  }
-
-  componentWillUnmount() {
-    this.headlessFacet.subscribe(() => {});
-  }
-
-  updateState() {
-    this.setState(this.headlessFacet.state);
-  }
-
-  toggleSelect(value: FacetValue) {
-    this.headlessFacet.toggleSelect(value);
-  }
-
-  showMore() {
-    this.headlessFacet.showMoreValues();
-  }
-
-  showLess() {
-    this.headlessFacet.showLessValues();
-  }
-
-  getFacetValues() {
-    return this.state.values.map((value: FacetValue) => (
-      <Box mb={1} key={value.value}>
-        <FormControlLabel
-          label={`${value.value} (${value.numberOfResults})`}
-          control={
-            <Checkbox
-              checked={this.headlessFacet.isValueSelected(value)}
-              color="secondary"
-              onChange={(event) => this.toggleSelect(value)}
-            />
-          }
-        />
+  return (
+    <Box mb={5} mr={3} p={1}>
+      <Box pb={1}>
+        <Typography variant="h6" component="h6">
+          {props.title}
+        </Typography>
       </Box>
-    ));
-  }
+      <Divider />
+      <List dense>
+        {state.values.map((value: FacetValue) => {
+          const labelId = `checkbox-list-label-${value}`;
 
-  getFacetSearch() {
-    return (
-      <Autocomplete
-        inputValue={this.state.inputValue}
-        onInputChange={(_, newInputValue) => {
-          this.setState({ inputValue: newInputValue });
-          this.headlessFacet.facetSearch.updateText(newInputValue);
-          this.headlessFacet.facetSearch.search();
-        }}
-        onChange={(_, chosenValue: any) => {
-          if (chosenValue != null) {
-            this.headlessFacet.facetSearch.select(chosenValue);
-          }
-          this.setState({ inputValue: "" });
-        }}
-        options={this.state.facetSearch.values}
-        getOptionLabel={(option: any) => option.displayValue}
-        getOptionSelected={() => true}
-        blurOnSelect
-        clearOnBlur
-        style={{ width: "auto" }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            placeholder="Search"
-            variant="outlined"
-            size="small"
-          />
-        )}
-      />
-    );
-  }
+          return (
+            <ListItem
+              style={{padding: 0}}
+              key={value.value}
+              role={undefined}
+              button
+              onClick={() => toggleSelect(value)}
+            >
+              <Checkbox
+                size="small"
+                edge="start"
+                checked={controller.isValueSelected(value)}
+                tabIndex={-1}
+                disableRipple
+                inputProps={{'aria-labelledby': labelId}}
+              />
+              <ListItemText
+                className="truncate inline"
+                primary={`${value.value}`}
+                secondary={`(${value.numberOfResults})`}
+              />
+            </ListItem>
+          );
+        })}
+      </List>
+      {state.canShowLessValues && (
+        <Button size="small" onClick={() => showLess()}>
+          Show Less
+        </Button>
+      )}
+      {state.canShowMoreValues && (
+        <Button size="small" onClick={() => showMore()}>
+          Show More
+        </Button>
+      )}
+    </Box>
+  );
+};
 
-  getShowMore() {
-    return (
-      <Button
-        onClick={() => {
-          this.showMore();
-        }}
-      >
-        Show More
-      </Button>
-    );
-  }
+const Facet: FunctionComponent<FacetProps> = (props) => {
+  const engine = useContext(EngineContext)!;
+  const controller: HeadlessFacet = buildFacet(engine, {
+    options: {
+      numberOfValues: 5,
+      field: props.field,
+    },
+  });
+  return <FacetRenderer {...props} controller={controller} />;
+};
 
-  getShowLess() {
-    return (
-      <Button
-        onClick={() => {
-          this.showLess();
-        }}
-      >
-        Show Less
-      </Button>
-    );
-  }
-
-  render() {
-    return (
-      <Box mt={5} mr={3} p={1} bgcolor="#E5E8E8">
-        <FormControl component="fieldset">
-          <Box mb={1}>
-            <FormLabel component="legend" color="primary">
-              {this.props.title}
-            </FormLabel>
-          </Box>
-          <FormGroup>{this.getFacetValues()}</FormGroup>
-        </FormControl>
-        {this.state.canShowMoreValues && this.getFacetSearch()}
-        {this.state.canShowMoreValues && this.getShowMore()}
-        {this.state.canShowLessValues && this.getShowLess()}
-      </Box>
-    );
-  }
-}
+export default Facet;

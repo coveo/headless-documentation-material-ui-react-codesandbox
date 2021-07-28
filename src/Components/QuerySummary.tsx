@@ -1,87 +1,75 @@
-/* eslint-disable no-use-before-define */
-import React from "react";
+import {FunctionComponent, useEffect, useState, useContext} from 'react';
 import {
   buildQuerySummary,
-  QuerySummary as QuerySummaryType,
-  QuerySummaryState
-} from "@coveo/headless";
-import { headlessEngine } from "../Engine";
-import { Box } from "@material-ui/core";
+  QuerySummary as HeadlessQuerySummary,
+} from '@coveo/headless';
+import {Box, Divider} from '@material-ui/core';
+import EngineContext from '../common/engineContext';
 
-export default class QuerySummary extends React.Component {
-  private headlessQuerySummary: QuerySummaryType;
-  state: QuerySummaryState;
+interface QuerySummaryProps {
+  controller: HeadlessQuerySummary;
+}
 
-  constructor(props: any) {
-    super(props);
+const QuerySummaryRenderer: FunctionComponent<QuerySummaryProps> = (props) => {
+  const {controller} = props;
+  const [state, setState] = useState(controller.state);
 
-    this.headlessQuerySummary = buildQuerySummary(headlessEngine);
+  useEffect(
+    () => controller.subscribe(() => setState(controller.state)),
+    [controller]
+  );
 
-    this.state = this.headlessQuerySummary.state;
-  }
-
-  componentDidMount() {
-    this.headlessQuerySummary.subscribe(() => this.updateState());
-  }
-
-  updateState() {
-    this.setState(this.headlessQuerySummary.state);
-  }
-
-  renderNoResults() {
+  const renderNoResults = () => {
     return <Box mt={5}>No results</Box>;
-  }
+  };
 
-  renderBold(input: string) {
+  const renderBold = (input: string) => {
     return (
       <Box component="span">
         <strong>{input}</strong>
       </Box>
     );
-  }
+  };
 
-  renderRange() {
-    return this.renderBold(
-      ` ${this.state.firstResult}-${this.state.lastResult}`
-    );
-  }
+  const renderRange = () => {
+    return renderBold(` ${state.firstResult}-${state.lastResult}`);
+  };
 
-  renderTotal() {
+  const renderTotal = () => {
+    return <Box component="span"> of {renderBold(state.total.toString())}</Box>;
+  };
+
+  const renderQuery = () => {
+    if (state.hasQuery) {
+      return <Box component="span"> for {renderBold(state.query)}</Box>;
+    }
+  };
+
+  const renderDuration = () => {
+    return ` in ${state.durationInSeconds} seconds`;
+  };
+
+  const renderHasResults = () => {
     return (
-      <Box component="span">
-        {" "}
-        of {this.renderBold(this.state.total.toString())}
+      <Box>
+        <Box fontWeight="fontWeightBold">
+          Results{renderRange()}
+          {renderTotal()}
+          {renderQuery()}
+          {renderDuration()}
+        </Box>
+        <Divider />
       </Box>
     );
-  }
+  };
 
-  renderQuery() {
-    if (this.state.hasQuery) {
-      return (
-        <Box component="span"> for {this.renderBold(this.state.query)}</Box>
-      );
-    }
-  }
+  return !state.hasResults ? renderNoResults() : renderHasResults();
+};
 
-  renderDuration() {
-    return ` in ${this.state.durationInSeconds} seconds`;
-  }
+const QuerySummary = () => {
+  const engine = useContext(EngineContext)!;
+  const controller = buildQuerySummary(engine);
+  return <QuerySummaryRenderer controller={controller} />;
+};
 
-  renderHasResults() {
-    return (
-      <Box mt={5}>
-        Results{this.renderRange()}
-        {this.renderTotal()}
-        {this.renderQuery()}
-        {this.renderDuration()}
-      </Box>
-    );
-  }
-
-  render() {
-    if (!this.state.hasResults) {
-      return this.renderNoResults();
-    }
-    return this.renderHasResults();
-  }
-}
+export default QuerySummary;

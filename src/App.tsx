@@ -1,108 +1,86 @@
-import React from "react";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import SearchBox from "./Components/SearchBox";
-import QuerySummary from "./Components/QuerySummary";
-import ResultList from "./Components/ResultList";
-import Pager from "./Components/Pager";
-import Facet from "./Components/Facet";
-import DateFacet from "./Components/DateFacet";
-import CategoryFacet from "./Components/CategoryFacet";
-import ResultsPerPage from "./Components/ResultsPerPage";
-import FacetBreadcrumbs from "./Components/FacetBreadcrumbs";
-import { loadSearchAnalyticsActions, loadSearchActions } from "@coveo/headless";
-import { headlessEngine } from "./Engine";
-import CenteredTabs from "./Components/CenteredTabs";
-import HeadlessTab from "./Components/Tab";
-import Sort from "./Components/Sort";
-import RelevanceInspector from "./Components/RelevanceInspector";
+import React, {useEffect} from 'react';
+import SearchPage from './Components/SearchPage';
+import Hero from './Components/Hero';
+import logo from './logo.svg';
+import coveologo from './coveologo.svg';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {Grid, Typography, Box} from '@material-ui/core';
+import {initializeHeadlessEngine} from './common/Engine';
+import {SearchEngine} from '@coveo/headless';
 
-export default class App extends React.Component {
-  componentDidMount() {
-    const { logInterfaceLoad } = loadSearchAnalyticsActions(headlessEngine);
-    const { executeSearch } = loadSearchActions(headlessEngine);
-
-    headlessEngine.dispatch(executeSearch(logInterfaceLoad()));
-  }
-
-  render() {
-    return (
-      <Container maxWidth="md">
-        <Box my={3}>
-          <Box bgcolor="#E5E8E8" py={3}>
-            <Typography
-              align="center"
-              color="textSecondary"
-              variant="h4"
-              component="h1"
-              gutterBottom
-            >
-              Coveo Headless + Material UI
-            </Typography>
-          </Box>
-          <CenteredTabs>
-            <HeadlessTab
-              selected={true}
-              id="All"
-              label="All Content"
-              expression=""
-            />
-            <HeadlessTab
-              id="Countries"
-              label="Countries"
-              expression='@source=="
-              Coveo Sample - ListCountries"'
-            />
-            <HeadlessTab
-              id="YouTube"
-              label="BBC News YouTube"
-              expression='@source=="Coveo Samples - Youtube BBC News"'
-            />
-          </CenteredTabs>
-          <SearchBox />
-          <Box my={1}>
-            <FacetBreadcrumbs />
-            <Grid container>
-              <Grid item xs={4}>
-                <Facet title="Source" field="source" />
-                <Facet title="File Type" field="filetype" />
-                <DateFacet title="Date" field="sysdate" delimiter="/" />
-                <CategoryFacet
-                  title="Location"
-                  field="atlgeographicalhierarchy"
-                  subtitle="All Continents"
-                />
-              </Grid>
-              <Grid item xs={8}>
-                <Grid container alignItems="flex-end">
-                  <Grid item xs={8}>
-                    <QuerySummary />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Sort />
-                  </Grid>
-                </Grid>
-                <ResultList />
-              </Grid>
-            </Grid>
-          </Box>
-          <Box my={4}>
-            <Grid container>
-              <Grid item xs={6}>
-                <Pager />
-              </Grid>
-              <Grid item xs={6}>
-                <ResultsPerPage />
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-        <Grid item xs={6}>
-          <RelevanceInspector />
-        </Grid>
-      </Container>
-    );
-  }
+export default function App() {
+  return (
+    <Router>
+      <GuardedRoute />
+    </Router>
+  );
 }
+
+const GuardedRoute = () => {
+  const isEnvValid = () => {
+    const variables = [
+      'REACT_APP_PLATFORM_URL',
+      'REACT_APP_ORGANIZATION_ID',
+      'REACT_APP_API_KEY',
+      'REACT_APP_USER_EMAIL',
+      'REACT_APP_SERVER_PORT',
+    ];
+    const reducer = (previousValue: boolean, currentValue: string) =>
+      previousValue && Boolean(process.env[currentValue]);
+    return variables.reduce(reducer, true);
+  };
+
+  return (
+    <Route render={() => (isEnvValid() === true ? <Home /> : <Error />)} />
+  );
+};
+
+const Home = () => {
+  const [engine, setEngine] = React.useState<SearchEngine | null>(null);
+
+  useEffect(() => {
+    initializeHeadlessEngine().then((engine) => {
+      setEngine(engine);
+    });
+  }, []);
+
+  if (engine) {
+    return (
+      <div className="App">
+        <Hero
+          logos={[logo, coveologo]}
+          welcome="Welcome to Your Coveo React.js Search Page"
+        />
+        {engine && <SearchPage engine={engine} />}
+      </div>
+    );
+  } else {
+    return <div>Waiting for engine</div>;
+  }
+};
+
+const Error = () => {
+  return (
+    <Box height="100vh" display="flex" align-items="center">
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Grid item md={9} sm={11}>
+          <div className="container">
+            <Typography variant="h4" color="error">
+              Invalid Environment variables
+            </Typography>
+            <Typography variant="body1">
+              You should have a valid <code>.env</code> file at the root of this
+              project. You can use <code>.env.example</code> as starting point
+              and make sure to replace all placeholder variables
+              <code>&#60;...&#62;</code> by the proper information for your
+              organization.
+            </Typography>
+            <p>
+              Refer to the project <b>README</b> file for more information.
+            </p>
+          </div>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};
