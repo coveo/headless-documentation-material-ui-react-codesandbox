@@ -4,7 +4,7 @@ import {
   CategoryFacet as CategoryFacetType,
   CategoryFacetState,
   buildCategoryFacet,
-  CategoryFacetValue
+  CategoryFacetValue,
 } from "@coveo/headless";
 
 import Typography from "@material-ui/core/Typography";
@@ -16,7 +16,7 @@ import Button from "@material-ui/core/Button";
 
 const hoveredStyle = {
   cursor: "pointer",
-  color: "primary"
+  color: "primary",
 };
 
 interface ICategoryFacetProps {
@@ -30,7 +30,7 @@ export default class CategoryFacet extends React.Component<
   {}
 > {
   public static defaultProps = {
-    subtitle: "All Categories"
+    subtitle: "All Categories",
   };
 
   private headlessCategoryFacet: CategoryFacetType;
@@ -47,8 +47,8 @@ export default class CategoryFacet extends React.Component<
       options: {
         numberOfValues: 3,
         field: this.props.field,
-        delimitingCharacter: "|"
-      }
+        delimitingCharacter: "|",
+      },
     });
 
     this.state = this.headlessCategoryFacet.state;
@@ -124,7 +124,6 @@ export default class CategoryFacet extends React.Component<
   }
 
   getValues() {
-
     const align = this.valuesAlign();
 
     return this.state.values.map((value) => (
@@ -140,7 +139,6 @@ export default class CategoryFacet extends React.Component<
       </div>
     ));
   }
-
 
   getShowMore() {
     return (
@@ -168,7 +166,7 @@ export default class CategoryFacet extends React.Component<
 
   render() {
     return (
-      <Box mt={5} mr={3} p={1} bgcolor="#5D7289">
+      <Box mt={5} mr={3} p={1} bgcolor="#E5E8E8">
         <Box mb={1}>
           <FormLabel component="legend" color="primary">
             {this.props.title}

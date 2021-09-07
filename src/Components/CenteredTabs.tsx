@@ -4,7 +4,7 @@ import Tabs from "@material-ui/core/Tabs";
 
 export default class CenteredTabs extends React.Component {
   state = {
-    value: 0
+    value: 0,
   };
 
   handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -17,8 +17,8 @@ export default class CenteredTabs extends React.Component {
         <Tabs
           value={this.state.value}
           onChange={this.handleChange}
-          indicatorColor="primary"
-          textColor="primary"
+          indicatorColor="secondary"
+          textColor="inherit"
           centered
         >
           {this.props.children}

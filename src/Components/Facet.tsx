@@ -3,7 +3,7 @@ import {
   Facet as FacetType,
   FacetState,
   buildFacet,
-  FacetValue
+  FacetValue,
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 import FormLabel from "@material-ui/core/FormLabel";
@@ -33,13 +33,13 @@ export default class Facet extends React.Component<IFacetProps, {}> {
     this.headlessFacet = buildFacet(headlessEngine, {
       options: {
         numberOfValues: 3,
-        field: this.props.field
-      }
+        field: this.props.field,
+      },
     });
 
     this.state = {
       ...this.headlessFacet.state,
-      inputValue: ""
+      inputValue: "",
     };
   }
   componentDidMount() {
@@ -74,7 +74,7 @@ export default class Facet extends React.Component<IFacetProps, {}> {
           control={
             <Checkbox
               checked={this.headlessFacet.isValueSelected(value)}
-              color="primary"
+              color="secondary"
               onChange={(event) => this.toggleSelect(value)}
             />
           }
@@ -142,7 +142,7 @@ export default class Facet extends React.Component<IFacetProps, {}> {
 
   render() {
     return (
-      <Box mt={5} mr={3} p={1} bgcolor="#5D7289">
+      <Box mt={5} mr={3} p={1} bgcolor="#E5E8E8">
         <FormControl component="fieldset">
           <Box mb={1}>
             <FormLabel component="legend" color="primary">
