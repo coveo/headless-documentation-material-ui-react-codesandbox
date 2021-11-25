@@ -21,6 +21,7 @@ jobs:
         run: |
           cd .github/scripts
           ruby update_package.rb ${{ github.event.client_payload.headless_version }}
+          cd ../..
           git add package.json
           git commit -m "update package to version ${{ github.event.client_payload.headless_version }}"
           git push https://github.com/coveo/headless-documentation-material-ui-react-codesandbox version-${{ github.event.client_payload.headless_version }}
