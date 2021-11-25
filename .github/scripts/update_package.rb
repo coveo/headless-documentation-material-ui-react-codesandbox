@@ -10,7 +10,7 @@ class UpdatePackage
         new_package = @package
         update_title_version(new_package, @version)
         update_headless_version(new_package, @version)
-        File.write('../package.json', JSON.pretty_generate(new_package))
+        File.write('../../package.json', JSON.pretty_generate(new_package))
 
     end
 
