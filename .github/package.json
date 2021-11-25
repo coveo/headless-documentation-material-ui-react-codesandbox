@@ -2,7 +2,9 @@
   "name": "coveo-headless-1320",
   "version": "1.0.0",
   "description": "",
-  "keywords": [],
+  "keywords": [
+
+  ],
   "main": "src/index.tsx",
   "dependencies": {
     "@coveo/headless": "1.32.0",
