@@ -12,7 +12,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          branch: "csb-headless-${{ github.event.client_payload.headless_version }}"
+          branch: "version-${{ github.event.client_payload.headless_version }}"
       - name: Setup Ruby in runner
         uses: actions/setup-ruby@v1
         with:
@@ -21,12 +21,6 @@ jobs:
         run: |
           cd .github/scripts
           ruby update_package.rb ${{ github.event.client_payload.headless_version }}
-      - name: Create PR for new branch
-        uses: gr2m/create-or-update-pull-request-action@cbfed2a38aedceab8d9fc0d9ac14890fc181d39e
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        with:
-          title: "Generate Headless CSB Demo v${{ github.event.client_payload.headless_version }}"
-          branch: "version-${{ github.event.client_payload.headless_version }}"
-          commit-message: "Update version"
-          assignees: dlutzCoveo
+          git add package.json
+          git commit -m "update package to version ${{ github.event.client_payload.headless_version }}"
+          git push https://github.com/coveo/headless-documentation-material-ui-react-codesandbox version-${{ github.event.client_payload.headless_version }}
