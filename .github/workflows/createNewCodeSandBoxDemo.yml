@@ -24,7 +24,8 @@ jobs:
           cd ../..
           git config --global user.email "{{ secrets.AUTHOR_EMAIL }}"
           git config --global user.name "{{ secrets.AUTHOR }}"
+          git status
           git add package.json
           git commit -m "update package to version ${{ github.event.client_payload.headless_version }}"
-          git push -u version-${{ github.event.client_payload.headless_version }}
+          git push -u origin version-${{ github.event.client_payload.headless_version }}
           
