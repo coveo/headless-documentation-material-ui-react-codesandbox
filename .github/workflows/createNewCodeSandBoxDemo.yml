@@ -24,13 +24,11 @@ jobs:
         run: |
           git config --global user.email "{{ secrets.AUTHOR_EMAIL }}"
           git config --global user.name "{{ secrets.AUTHOR }}"
-          git config user.name
-          git config user.email
           cd .github/scripts
           ruby update_package.rb ${{ github.event.client_payload.headless_version }}
           cd ../..
           git status
           git add package.json
           git commit -m "update package to version ${{ github.event.client_payload.headless_version }}"
-          git push origin version-${{ github.event.client_payload.headless_version }}
+          git push
           
