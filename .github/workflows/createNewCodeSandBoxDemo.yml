@@ -6,13 +6,16 @@ jobs:
   create-new-demo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: Make a new Branch
         uses: peterjgrainger/action-create-branch@b48b0ca0e307c9b56f059b70274984ffeaa90a43
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           branch: "version-${{ github.event.client_payload.headless_version }}"
+      - name: Check out new branch
+        uses: actions/checkout@v2
+        with:
+          ref: version-${{ github.event.client_payload.headless_version }}
       - name: Setup Ruby in runner
         uses: actions/setup-ruby@v1
         with:
@@ -21,7 +24,6 @@ jobs:
         run: |
           git config --global user.email "{{ secrets.AUTHOR_EMAIL }}"
           git config --global user.name "{{ secrets.AUTHOR }}"
-          git checkout version-${{ github.event.client_payload.headless_version }}
           cd .github/scripts
           ruby update_package.rb ${{ github.event.client_payload.headless_version }}
           cd ../..
