@@ -6,7 +6,11 @@ jobs:
   create-new-demo:
     runs-on: ubuntu-latest
     steps:
-      - name: Make a new Branch
+      - name: Setup Ruby in runner
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Make a new Branch for version
         uses: peterjgrainger/action-create-branch@b48b0ca0e307c9b56f059b70274984ffeaa90a43
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -16,20 +20,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: version-${{ github.event.client_payload.headless_version }}
-      - name: Setup Ruby in runner
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: '2.6'
       - name: Run script to update package.json on new branch
         run: |
           cd .github/scripts
           ruby update_package.rb ${{ github.event.client_payload.headless_version }}
           cd ../..
-      - name: Add and commit out new package to branch
-        uses: actions/checkout@v2
-      - run: |
           git config user.name ${{ secrets.AUTHOR }}
           git config user.email ${{ secrets.AUTHOR_EMAIL }}
+          git status
           git add package.json
           git commit -m "update package to version ${{ github.event.client_payload.headless_version }}"
           git push
