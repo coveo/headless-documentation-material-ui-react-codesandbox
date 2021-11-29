@@ -12,6 +12,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           branch: "version-${{ github.event.client_payload.headless_version }}"
+      - name: Checkout new branch
+        uses: actions/checkout@v2
+        with:
+          ref: version-${{ github.event.client_payload.headless_version }}
       - name: Setup Ruby in runner
         uses: actions/setup-ruby@v1
         with:
