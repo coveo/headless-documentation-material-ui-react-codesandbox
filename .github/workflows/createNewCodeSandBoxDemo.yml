@@ -12,10 +12,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           branch: "version-${{ github.event.client_payload.headless_version }}"
-      - name: Check out new branch
-        uses: actions/checkout@v2
-        with:
-          ref: version-${{ github.event.client_payload.headless_version }}
       - name: Setup Ruby in runner
         uses: actions/setup-ruby@v1
         with:
@@ -27,7 +23,11 @@ jobs:
           cd .github/scripts
           ruby update_package.rb ${{ github.event.client_payload.headless_version }}
           cd ../..
-          git status
+      - name: Add and commit out new package to branch
+        uses: actions/checkout@v2
+        with:
+          ref: version-${{ github.event.client_payload.headless_version }}
+      - run: |
           git add package.json
           git commit -m "update package to version ${{ github.event.client_payload.headless_version }}"
           git push
