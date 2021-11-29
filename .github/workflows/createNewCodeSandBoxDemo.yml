@@ -27,8 +27,6 @@ jobs:
           cd ../..
       - name: Add and commit out new package to branch
         uses: actions/checkout@v2
-        with:
-          ref: version-${{ github.event.client_payload.headless_version }}
       - run: |
           git config user.name ${{ secrets.AUTHOR }}
           git config user.email ${{ secrets.AUTHOR_EMAIL }}
