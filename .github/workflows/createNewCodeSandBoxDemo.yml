@@ -30,6 +30,8 @@ jobs:
         with:
           ref: version-${{ github.event.client_payload.headless_version }}
       - run: |
+          git config user.name ${{ secrets.AUTHOR }}
+          git config user.email ${{ secrets.AUTHOR_EMAIL }}
           git add package.json
           git commit -m "update package to version ${{ github.event.client_payload.headless_version }}"
           git push
