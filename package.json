@@ -1,11 +1,13 @@
 {
-  "name": "coveo-headless-1320",
+  "name": "coveo-headless-11090",
   "version": "1.0.0",
   "description": "",
-  "keywords": [],
+  "keywords": [
+
+  ],
   "main": "src/index.tsx",
   "dependencies": {
-    "@coveo/headless": "1.32.0",
+    "@coveo/headless": "1.109.0",
     "@material-ui/core": "4.11.0",
     "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "4.0.0-alpha.56",
