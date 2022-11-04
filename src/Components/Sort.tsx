@@ -7,11 +7,17 @@ import {
   buildDateSortCriterion,
   SortOrder,
   SortByRelevancy,
-  SortByDate
+  SortByDate,
 } from "@coveo/headless";
-import { headlessEngine } from "../Engine";
-import FormControl from "@material-ui/core/FormControl";
-import NativeSelect from "@material-ui/core/NativeSelect";
+import headlessEngine from "../Engine";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  NativeSelect,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 
 export default class Sort extends React.Component {
   private headlessSort: SortType;
@@ -29,8 +35,8 @@ export default class Sort extends React.Component {
 
     this.headlessSort = buildSort(headlessEngine, {
       initialState: {
-        criterion: this.relevanceSortCriterion
-      }
+        criterion: this.relevanceSortCriterion,
+      },
     });
 
     this.state = this.headlessSort.state;
@@ -44,7 +50,7 @@ export default class Sort extends React.Component {
     this.setState(this.headlessSort.state);
   }
 
-  handleChange(event: any) {
+  handleChange(event: SelectChangeEvent<string>) {
     switch (event.target.value) {
       case "relevance":
         this.headlessSort.sortBy(this.relevanceSortCriterion);
@@ -58,14 +64,33 @@ export default class Sort extends React.Component {
     }
   }
 
+  getSelectValue() {
+    if (this.headlessSort.isSortedBy(this.relevanceSortCriterion)) {
+      return "relevance";
+    }
+    if (this.headlessSort.isSortedBy(this.dateDescendingSortCriterion)) {
+      return "datedescending";
+    }
+    if (this.headlessSort.isSortedBy(this.dateAscendingSortCriterion)) {
+      return "dateascending";
+    }
+  }
+
   render() {
     return (
-      <FormControl>
-        <NativeSelect onChange={(event: any) => this.handleChange(event)}>
-          <option value="relevance">Relevance</option>
-          <option value="datedescending">Date Descending</option>
-          <option value="dateascending">Date Ascending</option>
-        </NativeSelect>
+      <FormControl fullWidth>
+        <InputLabel id="sortby">Sort by</InputLabel>
+        <Select
+          labelId="sortby"
+          id="sortby"
+          value={this.getSelectValue()}
+          label="Sort"
+          onChange={(e) => this.handleChange(e)}
+        >
+          <MenuItem value="relevance">Relevance</MenuItem>
+          <MenuItem value="datedescending">Date Descending</MenuItem>
+          <MenuItem value="dateascending">Date Ascending</MenuItem>
+        </Select>
       </FormControl>
     );
   }

@@ -1,23 +1,19 @@
 import React from "react";
-import Button from "@material-ui/core/IconButton";
 import {
   BreadcrumbManager as BreadcrumbManagerType,
   BreadcrumbManagerState,
-  buildBreadcrumbManager
+  buildBreadcrumbManager,
 } from "@coveo/headless";
-import { headlessEngine } from "../Engine";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
-import ClearIcon from "@material-ui/icons/Clear";
+import headlessEngine from "../Engine";
+import { Box, Button, Grid, Link, Typography } from "@mui/material";
+import { Clear } from "@mui/icons-material";
 
 const hoveredStyle = {
-  cursor: "pointer"
+  cursor: "pointer",
 };
 
 const clearStyle = {
-  fontSize: "1em"
+  fontSize: "1em",
 };
 
 // Currently, this component only displays breadcrumbs from basic facets.
@@ -68,7 +64,7 @@ export default class FacetBreadcrumbs extends React.Component {
                   <Box mt={0.3}>{breadcrumbValue}</Box>
                 </Grid>
                 <Grid item>
-                  <ClearIcon fontSize="small" />
+                  <Clear fontSize="small" />
                 </Grid>
               </Grid>
             </Link>
@@ -98,7 +94,7 @@ export default class FacetBreadcrumbs extends React.Component {
                   </Box>
                 </Grid>
                 <Grid item>
-                  <ClearIcon fontSize="small" />
+                  <Clear fontSize="small" />
                 </Grid>
               </Grid>
             </Link>
@@ -129,7 +125,7 @@ export default class FacetBreadcrumbs extends React.Component {
                   <Box mt={0.3}>{value.value.value}</Box>
                 </Grid>
                 <Grid item>
-                  <ClearIcon fontSize="small" />
+                  <Clear fontSize="small" />
                 </Grid>
               </Grid>
             </Link>

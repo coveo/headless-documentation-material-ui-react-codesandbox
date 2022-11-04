@@ -1,10 +1,7 @@
-/* eslint-disable no-use-before-define */
 import React from "react";
-import { Pagination } from "@material-ui/lab";
-import Box from "@material-ui/core/Box/Box";
-import Typography from "@material-ui/core/Typography";
 import { buildPager, Pager as PagerType, PagerState } from "@coveo/headless";
-import { headlessEngine } from "../Engine";
+import headlessEngine from "../Engine";
+import { Box, Pagination, Typography } from "@mui/material";
 
 export default class Pager extends React.Component {
   private headlessPager: PagerType;
@@ -14,7 +11,7 @@ export default class Pager extends React.Component {
     super(props);
 
     this.headlessPager = buildPager(headlessEngine, {
-      options: { numberOfPages: 3 }
+      options: { numberOfPages: 3 },
     });
 
     this.state = this.headlessPager.state;
@@ -49,8 +46,7 @@ export default class Pager extends React.Component {
           count={this.count}
           onChange={(e, page) => this.setPage(page)}
           variant="outlined"
-          shape="rounded"
-          size="small"
+          color="primary"
         />
       </Box>
     );
