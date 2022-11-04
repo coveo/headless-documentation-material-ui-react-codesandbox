@@ -9,9 +9,7 @@ import {
 import headlessEngine from "../Engine";
 import {
   Card,
-  CardActions,
   CardContent,
-  CardHeader,
   CardMedia,
   Grid,
   Rating,
