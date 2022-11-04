@@ -6,11 +6,7 @@ import {
   SearchBoxState,
 } from "@coveo/headless";
 import headlessEngine from "../Engine";
-import {
-  Autocomplete,
-  IconButton,
-  TextField,
-} from "@mui/material";
+import { Autocomplete, IconButton, TextField } from "@mui/material";
 import { Search } from "@mui/icons-material";
 
 export default class SearchBox extends React.Component {
@@ -48,6 +44,8 @@ export default class SearchBox extends React.Component {
   render() {
     return (
       <Autocomplete
+        freeSolo
+        disableClearable
         inputValue={this.state.value}
         onInputChange={(_, newInputValue) => {
           this.headlessSearchBox.updateText(newInputValue);
@@ -56,15 +54,13 @@ export default class SearchBox extends React.Component {
           this.headlessSearchBox.submit();
         }}
         options={this.state.suggestions.map((s) => s.rawValue)}
-        freeSolo
-        style={{ width: "auto" }}
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder="Search"
-            variant="outlined"
-            size="small"
+            label="Search"
             InputProps={{
+              ...params.InputProps,
+              type: "search",
               endAdornment: (
                 <IconButton
                   type="button"
