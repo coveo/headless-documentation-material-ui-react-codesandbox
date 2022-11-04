@@ -1,14 +1,11 @@
 {
-    "include": [
-        "./src/*"
-    ],
-    "compilerOptions": {
-        "strict": true,
-        "esModuleInterop": true,
-        "lib": [
-            "dom",
-            "es2015"
-        ],
-        "jsx": "react"
-    }
+  "include": ["./src/*"],
+  "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "target": "ES6",
+    "lib": ["dom", "es2015"],
+    "jsx": "react"
+  }
 }

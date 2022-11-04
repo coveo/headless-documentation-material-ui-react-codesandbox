@@ -1,47 +1,37 @@
 import {
   buildInteractiveResult,
   InteractiveResult,
-  Result
+  Result,
 } from "@coveo/headless";
+import { Link } from "@mui/material";
 import React from "react";
-import { ListItem, ListItemText } from "@material-ui/core";
-import { headlessEngine } from "../Engine";
+import headlessEngine from "../Engine";
 
-function ListItemLink(props: any) {
-  return <ListItem button component="a" {...props} />;
-}
-
-interface ILinkProps {
+interface ResultLinkProps {
   result: Result;
 }
 
-export default class ResultLink extends React.Component<ILinkProps, {}> {
+export default class ResultLink extends React.Component<ResultLinkProps, {}> {
   private interactiveResult: InteractiveResult;
   private result: Result;
 
-  constructor(props: ILinkProps) {
+  constructor(props: ResultLinkProps) {
     super(props);
     this.result = props.result;
     this.interactiveResult = buildInteractiveResult(headlessEngine, {
-      options: { result: props.result }
+      options: { result: props.result },
     });
   }
 
   render() {
     return (
-      <ListItem disableGutters>
-        <ListItemLink
-          disableGutters
-          href={this.result.clickUri}
-          target="_blank"
-          onClick={() => this.interactiveResult.select()}
-        >
-          <ListItemText
-            primary={this.result.title}
-            secondary={this.result.excerpt}
-          />
-        </ListItemLink>
-      </ListItem>
+      <Link
+        href={this.result.clickUri}
+        target="_blank"
+        onClick={() => this.interactiveResult.select()}
+      >
+        {this.result.title}
+      </Link>
     );
   }
 }

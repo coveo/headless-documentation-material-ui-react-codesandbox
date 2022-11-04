@@ -1,16 +1,16 @@
 import React from "react";
-import { render } from "react-dom";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { createRoot } from "react-dom/client";
+
 import App from "./App";
-import theme from "./theme";
+import { theme } from "./theme";
 
 const rootElement = document.getElementById("root");
-render(
-  <ThemeProvider theme={theme}>
-    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-    <CssBaseline />
-    <App />
-  </ThemeProvider>,
-  rootElement
+const root = createRoot(rootElement!);
+root.render(
+  <CssBaseline>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </CssBaseline>
 );

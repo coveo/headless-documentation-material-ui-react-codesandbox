@@ -1,16 +1,17 @@
-/* eslint-disable no-use-before-define */
 import React from "react";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import Typography from "@material-ui/core/Typography";
 import {
   buildResultsPerPage,
   ResultsPerPage as ResultsPerPageType,
-  ResultsPerPageState
+  ResultsPerPageState,
 } from "@coveo/headless";
-import { headlessEngine } from "../Engine";
+import headlessEngine from "../Engine";
+import {
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@mui/material";
 
 export default class ResultsPerPage extends React.Component {
   private headlessResultsPerPage: ResultsPerPageType;
@@ -20,7 +21,7 @@ export default class ResultsPerPage extends React.Component {
     super(props);
 
     this.headlessResultsPerPage = buildResultsPerPage(headlessEngine, {
-      initialState: { numberOfResults: 3 }
+      initialState: { numberOfResults: 9 },
     });
 
     this.state = this.headlessResultsPerPage.state;
@@ -41,14 +42,14 @@ export default class ResultsPerPage extends React.Component {
         <RadioGroup
           row
           name="test"
-          defaultValue="3"
+          defaultValue="9"
           onChange={(event) => {
             this.headlessResultsPerPage.set(parseInt(event.target.value, 10));
           }}
         >
-          <FormControlLabel value="1" control={<Radio />} label="1" />
-          <FormControlLabel value="3" control={<Radio />} label="3" />
-          <FormControlLabel value="5" control={<Radio />} label="5" />
+          <FormControlLabel value="9" control={<Radio />} label="9" />
+          <FormControlLabel value="27" control={<Radio />} label="27" />
+          <FormControlLabel value="60" control={<Radio />} label="60" />
         </RadioGroup>
       </FormControl>
     );
