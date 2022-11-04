@@ -5,16 +5,18 @@ import {
   buildFacet,
   FacetValue,
 } from "@coveo/headless";
-import { headlessEngine } from "../Engine";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import Box from "@material-ui/core/Box";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import TextField from "@material-ui/core/TextField";
+import headlessEngine from "../Engine";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
+  TextField,
+} from "@mui/material";
 
 export interface IFacetProps {
   title: string;
@@ -32,7 +34,7 @@ export default class Facet extends React.Component<IFacetProps, {}> {
 
     this.headlessFacet = buildFacet(headlessEngine, {
       options: {
-        numberOfValues: 3,
+        numberOfValues: 5,
         field: this.props.field,
       },
     });
@@ -100,7 +102,6 @@ export default class Facet extends React.Component<IFacetProps, {}> {
         }}
         options={this.state.facetSearch.values}
         getOptionLabel={(option: any) => option.displayValue}
-        getOptionSelected={() => true}
         blurOnSelect
         clearOnBlur
         style={{ width: "auto" }}
@@ -142,7 +143,7 @@ export default class Facet extends React.Component<IFacetProps, {}> {
 
   render() {
     return (
-      <Box mt={5} mr={3} p={1} bgcolor="#E5E8E8">
+      <Box mt={5} mr={3} p={1}>
         <FormControl component="fieldset">
           <Box mb={1}>
             <FormLabel component="legend" color="primary">

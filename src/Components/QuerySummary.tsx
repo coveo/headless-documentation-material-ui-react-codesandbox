@@ -3,10 +3,10 @@ import React from "react";
 import {
   buildQuerySummary,
   QuerySummary as QuerySummaryType,
-  QuerySummaryState
+  QuerySummaryState,
 } from "@coveo/headless";
-import { headlessEngine } from "../Engine";
-import { Box } from "@material-ui/core";
+import headlessEngine from "../Engine";
+import { Box } from "@mui/material";
 
 export default class QuerySummary extends React.Component {
   private headlessQuerySummary: QuerySummaryType;
@@ -69,7 +69,7 @@ export default class QuerySummary extends React.Component {
 
   renderHasResults() {
     return (
-      <Box mt={5}>
+      <Box>
         Results{this.renderRange()}
         {this.renderTotal()}
         {this.renderQuery()}

@@ -1,23 +1,23 @@
-/* eslint-disable no-use-before-define */
 import React from "react";
-import List from "@material-ui/core/List";
-import { Box } from "@material-ui/core";
 import ResultLink from "./ResultLink";
-import Divider from "@material-ui/core/Divider";
-import { ListItem, ListItemText } from "@material-ui/core";
 import {
   buildResultList,
   ResultList as ResultListType,
-  ResultTemplatesManager,
-  buildResultTemplatesManager,
   Result,
-  ResultListState
+  ResultListState,
 } from "@coveo/headless";
-import { headlessEngine } from "../Engine";
+import headlessEngine from "../Engine";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Rating,
+  Typography,
+} from "@mui/material";
 
 export default class ResultList extends React.Component {
   private headlessResultList: ResultListType;
-  private headlessResultTemplateManager: ResultTemplatesManager;
   state: ResultListState;
 
   constructor(props: any) {
@@ -25,29 +25,11 @@ export default class ResultList extends React.Component {
 
     this.headlessResultList = buildResultList(headlessEngine, {
       options: {
-        fieldsToInclude: ["date"]
-      }
+        fieldsToInclude: ["ec_image", "ec_price", "ec_rating"],
+      },
     });
 
     this.state = this.headlessResultList.state;
-
-    this.headlessResultTemplateManager = buildResultTemplatesManager(
-      headlessEngine
-    );
-    this.headlessResultTemplateManager.registerTemplates({
-      conditions: [],
-      content: (result: Result, index: number) => (
-        <Box key={result.uniqueId}>
-          {/* In this implementation, the ResultLink component is
-           responsible for logging a 'click' event to Coveo UA */}
-          <ResultLink result={result} />
-          <ListItem disableGutters>
-            <ListItemText secondary={this.getDate(result)} />
-          </ListItem>
-          <Divider />
-        </Box>
-      )
-    });
   }
 
   componentDidMount() {
@@ -62,21 +44,48 @@ export default class ResultList extends React.Component {
     this.headlessResultList.subscribe(() => {});
   }
 
-  getDate(result: Result) {
-    const date: Date = new Date(result.raw.date);
-    return date.toLocaleDateString();
-  }
-
   render() {
+    const formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
     return (
-      <List>
+      <Grid container spacing={2}>
         {this.state.results.map((result: Result) => {
-          const template: any = this.headlessResultTemplateManager.selectTemplate(
-            result
+          return (
+            <Grid
+              item
+              xs={4}
+              display="grid"
+              alignItems="stretch"
+              key={result.uniqueId}
+            >
+              <Card>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={`${result.raw.ec_image!}`}
+                />
+                <CardContent>
+                  <Typography variant="h5">
+                    {<ResultLink result={result} />}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {result.excerpt}
+                  </Typography>
+                  <Typography variant="h6" color="text.primary">
+                    {formatter.format(result.raw.ec_price as number)}
+                  </Typography>
+                  <Rating
+                    value={Math.round(result.raw.ec_rating as number)}
+                    readOnly
+                  />
+                </CardContent>
+              </Card>
+            </Grid>
           );
-          return template(result);
         })}
-      </List>
+      </Grid>
     );
   }
 }

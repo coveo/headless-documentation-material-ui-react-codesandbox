@@ -1,13 +1,13 @@
 /* eslint-disable no-use-before-define */
 import React from "react";
-import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import {
   buildSearchBox,
   SearchBox as SearchBoxType,
-  SearchBoxState
+  SearchBoxState,
 } from "@coveo/headless";
-import { headlessEngine } from "../Engine";
+import headlessEngine from "../Engine";
+import { Autocomplete, IconButton, TextField } from "@mui/material";
+import { Search } from "@mui/icons-material";
 
 export default class SearchBox extends React.Component {
   private headlessSearchBox: SearchBoxType;
@@ -21,14 +21,14 @@ export default class SearchBox extends React.Component {
         highlightOptions: {
           notMatchDelimiters: {
             open: "<strong>",
-            close: "</strong>"
+            close: "</strong>",
           },
           correctionDelimiters: {
             open: "<i>",
-            close: "</i>"
-          }
-        }
-      }
+            close: "</i>",
+          },
+        },
+      },
     });
     this.state = this.headlessSearchBox.state;
   }
@@ -44,6 +44,8 @@ export default class SearchBox extends React.Component {
   render() {
     return (
       <Autocomplete
+        freeSolo
+        disableClearable
         inputValue={this.state.value}
         onInputChange={(_, newInputValue) => {
           this.headlessSearchBox.updateText(newInputValue);
@@ -51,25 +53,25 @@ export default class SearchBox extends React.Component {
         onChange={() => {
           this.headlessSearchBox.submit();
         }}
-        options={this.state.suggestions}
-        getOptionLabel={(option) => {
-          return typeof option === "object" ? option.rawValue : option;
-        }}
-        renderOption={(option) => {
-          return (
-            <div
-              dangerouslySetInnerHTML={{ __html: option.highlightedValue }}
-            ></div>
-          );
-        }}
-        freeSolo
-        style={{ width: "auto" }}
+        options={this.state.suggestions.map((s) => s.rawValue)}
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder="Search"
-            variant="outlined"
-            size="small"
+            label="Search"
+            InputProps={{
+              ...params.InputProps,
+              type: "search",
+              endAdornment: (
+                <IconButton
+                  type="button"
+                  sx={{ p: "10px" }}
+                  aria-label="search"
+                  onClick={() => this.headlessSearchBox.submit()}
+                >
+                  <Search />
+                </IconButton>
+              ),
+            }}
           />
         )}
       />
