@@ -1,11 +1,13 @@
 {
-  "name": "coveo-headless-1320",
+  "name": "coveo-headless-11112",
   "version": "1.0.0",
   "description": "",
-  "keywords": [],
+  "keywords": [
+
+  ],
   "main": "src/index.tsx",
   "dependencies": {
-    "@coveo/headless": "^1.110.1",
+    "@coveo/headless": "1.111.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fontsource/roboto": "^4.5.8",
