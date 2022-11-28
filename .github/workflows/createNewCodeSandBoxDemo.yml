@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Ruby in runner
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.6'
+          ruby-version: '3.1.2'
       - name: Make a new Branch for version
         uses: peterjgrainger/action-create-branch@b48b0ca0e307c9b56f059b70274984ffeaa90a43
         env:
@@ -17,7 +17,7 @@ jobs:
         with:
           branch: "version-${{ github.event.client_payload.headless_version }}"
       - name: Checkout new branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: version-${{ github.event.client_payload.headless_version }}
       - name: Run script to update package.json on new branch
