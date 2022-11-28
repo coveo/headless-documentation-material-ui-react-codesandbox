@@ -11,7 +11,7 @@ jobs:
         with:
           ruby-version: '3.1.2'
       - name: Make a new Branch for version
-        uses: peterjgrainger/action-create-branch@b48b0ca0e307c9b56f059b70274984ffeaa90a43
+        uses: peterjgrainger/action-create-branch@64aa569aea81305305c6e92bd236d8c427debff8
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
