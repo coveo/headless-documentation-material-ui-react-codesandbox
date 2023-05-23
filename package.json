@@ -1,5 +1,5 @@
 {
-  "name": "coveo-headless-201",
+  "name": "coveo-headless-2171",
   "version": "1.0.0",
   "description": "",
   "keywords": [
@@ -7,7 +7,7 @@
   ],
   "main": "src/index.tsx",
   "dependencies": {
-    "@coveo/headless": "2.12.0",
+    "@coveo/headless": "2.17.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fontsource/roboto": "^4.5.8",
