@@ -51,7 +51,7 @@ export default class SearchBox extends React.Component {
           this.headlessSearchBox.updateText(newInputValue);
         }}
         onChange={() => {
-          this.headlessSearchBox.submit();
+          this.headlessSearchBox.selectSuggestion(this.headlessSearchBox.state.value);
         }}
         options={this.state.suggestions.map((s) => s.rawValue)}
         renderInput={(params) => (
