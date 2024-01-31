@@ -31,6 +31,7 @@ export default class Facet extends React.Component<IFacetProps, {}> {
 
   constructor(props: any) {
     super(props);
+    console.log("field: ", this.props.field);
 
     this.headlessFacet = buildFacet(headlessEngine, {
       options: {
