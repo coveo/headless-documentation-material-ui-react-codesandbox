@@ -10,8 +10,8 @@ import { loadSearchAnalyticsActions, loadSearchActions } from "@coveo/headless";
 import headlessEngine from "./Engine";
 import Sort from "./Components/Sort";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import Tab, { AMD_Props } from "./Components/Tab";
-import { intelProps } from "./Components/Tab";
+import Tab from "./Components/Tab";
+import { intelProps, AMD_Props } from "./TabProps";
 export default class App extends React.Component {
   componentDidMount() {
     const { logInterfaceLoad } = loadSearchAnalyticsActions(headlessEngine);

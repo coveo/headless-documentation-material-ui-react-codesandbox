@@ -1,19 +1,8 @@
 import headlessEngine from "../Engine";
-import {
-  buildQueryExpression,
-  buildTab,
-  TabOptions,
-  TabProps,
-  Tab as HeadlessTab,
-  TabInitialState,
-} from "@coveo/headless";
+import { buildTab, TabProps, Tab as HeadlessTab } from "@coveo/headless";
 import React from "react";
 
-export interface ITabProps {
-  initialState: TabInitialState;
-  options: TabOptions;
-}
-export default class Tab extends React.Component<ITabProps> {
+export default class Tab extends React.Component<TabProps> {
   private headlessTab: HeadlessTab;
   constructor(props: any) {
     super(props);
@@ -42,39 +31,3 @@ export default class Tab extends React.Component<ITabProps> {
     );
   }
 }
-
-const filterIntelProcessor = buildQueryExpression()
-  .addStringField({
-    field: "eng_processor",
-    operator: "contains",
-    values: ["Intel"],
-  })
-  .toQuerySyntax();
-
-const filterAMDProcessor = buildQueryExpression()
-  .addStringField({
-    field: "eng_processor",
-    operator: "contains",
-    values: ["AMD"],
-  })
-  .toQuerySyntax();
-
-const intelOptions: TabOptions = {
-  id: "Intel",
-  expression: filterIntelProcessor,
-};
-
-const AMD_Options: TabOptions = {
-  id: "AMD",
-  expression: filterAMDProcessor,
-};
-
-export const intelProps: TabProps = {
-  initialState: { isActive: false },
-  options: intelOptions,
-};
-
-export const AMD_Props: TabProps = {
-  initialState: { isActive: false },
-  options: AMD_Options,
-};
