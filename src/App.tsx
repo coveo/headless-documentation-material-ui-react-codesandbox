@@ -10,7 +10,7 @@ import { loadSearchAnalyticsActions, loadSearchActions } from "@coveo/headless";
 import headlessEngine from "./Engine";
 import Sort from "./Components/Sort";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import Tab from "./Components/Tab";
+import Tab, { AMD_Props } from "./Components/Tab";
 import { intelProps } from "./Components/Tab";
 export default class App extends React.Component {
   componentDidMount() {
@@ -38,6 +38,10 @@ export default class App extends React.Component {
           <Tab
             initialState={intelProps.initialState!}
             options={intelProps.options!}
+          />
+          <Tab
+            initialState={AMD_Props.initialState!}
+            options={AMD_Props.options!}
           />
         </div>
         <SearchBox />

@@ -7,7 +7,6 @@ import {
   Tab as HeadlessTab,
   TabInitialState,
 } from "@coveo/headless";
-import { PropsWithChildren } from "react";
 import React from "react";
 
 export interface ITabProps {
@@ -15,7 +14,6 @@ export interface ITabProps {
   options: TabOptions;
 }
 export default class Tab extends React.Component<ITabProps> {
-  //   PropsWithChildren<{}>
   private headlessTab: HeadlessTab;
   constructor(props: any) {
     super(props);
@@ -25,7 +23,6 @@ export default class Tab extends React.Component<ITabProps> {
 
   componentDidMount() {
     this.headlessTab.subscribe(() => this.updateState());
-    // this.setState({isActive: true})
   }
 
   updateState() {
@@ -35,13 +32,12 @@ export default class Tab extends React.Component<ITabProps> {
   render() {
     return (
       <button
-        // disabled={this.componentDidMount()}
         disabled={this.headlessTab.state.isActive}
         onClick={() => {
           this.headlessTab.select();
         }}
       >
-        {/* {this.props.children} */}
+        {this.props.options.id}
       </button>
     );
   }
@@ -64,7 +60,7 @@ const filterAMDProcessor = buildQueryExpression()
   .toQuerySyntax();
 
 const intelOptions: TabOptions = {
-  id: "intel",
+  id: "Intel",
   expression: filterIntelProcessor,
 };
 
@@ -78,10 +74,7 @@ export const intelProps: TabProps = {
   options: intelOptions,
 };
 
-const AMD_Props: TabProps = {
+export const AMD_Props: TabProps = {
   initialState: { isActive: false },
   options: AMD_Options,
 };
-
-//  buildTab(headlessEngine, intelProps);
-// export const AMD_Tab: HeadlessTab = buildTab(headlessEngine, AMD_Props);
