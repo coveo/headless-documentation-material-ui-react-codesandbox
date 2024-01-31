@@ -10,11 +10,8 @@ import { loadSearchAnalyticsActions, loadSearchActions } from "@coveo/headless";
 import headlessEngine from "./Engine";
 import Sort from "./Components/Sort";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import {
-  Tab,
-  intelTab as IntelTabController,
-  AMD_Tab as AMD_TabController,
-} from "./Components/Tab";
+import Tab from "./Components/Tab";
+import { intelProps } from "./Components/Tab";
 export default class App extends React.Component {
   componentDidMount() {
     const { logInterfaceLoad } = loadSearchAnalyticsActions(headlessEngine);
@@ -38,15 +35,10 @@ export default class App extends React.Component {
           </Typography>
         </Box>
         <div>
-          ici?
-          <Tab controller={IntelTabController}>
-            {/* <span className="material-symbols-outlined">barefoot</span> */}
-            Intel
-          </Tab>
-          <Tab controller={AMD_TabController}>
-            {/* <span className="material-symbols-outlined">apparel</span> */}
-            AMD
-          </Tab>
+          <Tab
+            initialState={intelProps.initialState!}
+            options={intelProps.options!}
+          />
         </div>
         <SearchBox />
         <Box my={1}>

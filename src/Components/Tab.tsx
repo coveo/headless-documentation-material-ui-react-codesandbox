@@ -5,38 +5,47 @@ import {
   TabOptions,
   TabProps,
   Tab as HeadlessTab,
+  TabInitialState,
 } from "@coveo/headless";
-
-import { useState, useEffect, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import React from "react";
 
-interface CustomProps extends PropsWithChildren {
-  controller: HeadlessTab;
+export interface ITabProps {
+  initialState: TabInitialState;
+  options: TabOptions;
 }
+export default class Tab extends React.Component<ITabProps> {
+  //   PropsWithChildren<{}>
+  private headlessTab: HeadlessTab;
+  constructor(props: any) {
+    super(props);
+    this.headlessTab = buildTab(headlessEngine, props);
+    this.state = this.headlessTab.state;
+  }
 
-export const Tab: React.FC<CustomProps> = (props) => {
-  const { controller } = props;
-  const [state, setState] = useState(controller.state);
+  componentDidMount() {
+    this.headlessTab.subscribe(() => this.updateState());
+    // this.setState({isActive: true})
+  }
 
-  useEffect(
-    () =>
-      controller.subscribe(() => {
-        setState(controller.state);
-      }),
-    [controller]
-  );
+  updateState() {
+    this.setState(this.headlessTab.state);
+  }
 
-  return (
-    <button
-      disabled={state.isActive}
-      onClick={() => {
-        controller.select();
-      }}
-    >
-      {props.children}
-    </button>
-  );
-};
+  render() {
+    return (
+      <button
+        // disabled={this.componentDidMount()}
+        disabled={this.headlessTab.state.isActive}
+        onClick={() => {
+          this.headlessTab.select();
+        }}
+      >
+        {/* {this.props.children} */}
+      </button>
+    );
+  }
+}
 
 const filterIntelProcessor = buildQueryExpression()
   .addStringField({
@@ -64,7 +73,7 @@ const AMD_Options: TabOptions = {
   expression: filterAMDProcessor,
 };
 
-const intelProps: TabProps = {
+export const intelProps: TabProps = {
   initialState: { isActive: false },
   options: intelOptions,
 };
@@ -74,5 +83,5 @@ const AMD_Props: TabProps = {
   options: AMD_Options,
 };
 
-export const intelTab: HeadlessTab = buildTab(headlessEngine, intelProps);
-export const AMD_Tab: HeadlessTab = buildTab(headlessEngine, AMD_Props);
+//  buildTab(headlessEngine, intelProps);
+// export const AMD_Tab: HeadlessTab = buildTab(headlessEngine, AMD_Props);
