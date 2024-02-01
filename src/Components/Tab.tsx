@@ -1,7 +1,7 @@
 import headlessEngine from "../Engine";
 import { buildTab, TabProps, Tab as HeadlessTab } from "@coveo/headless";
 import React from "react";
-
+import "../Tab.css";
 export default class Tab extends React.Component<TabProps> {
   private headlessTab: HeadlessTab;
   constructor(props: any) {
@@ -21,6 +21,7 @@ export default class Tab extends React.Component<TabProps> {
   render() {
     return (
       <button
+        className="tabbar"
         disabled={this.headlessTab.state.isActive}
         onClick={() => {
           this.headlessTab.select();

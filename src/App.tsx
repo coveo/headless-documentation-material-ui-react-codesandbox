@@ -11,7 +11,9 @@ import headlessEngine from "./Engine";
 import Sort from "./Components/Sort";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import Tab from "./Components/Tab";
-import { intelProps, AMD_Props } from "./TabProps";
+import { intelProps, AMD_Props, allProps } from "./TabProps";
+import "./App.css";
+
 export default class App extends React.Component {
   componentDidMount() {
     const { logInterfaceLoad } = loadSearchAnalyticsActions(headlessEngine);
@@ -23,7 +25,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Container maxWidth="xl">
-        <Box my={3}>
+        <Box my={1}>
           <Typography
             align="center"
             color="text.primary"
@@ -34,7 +36,7 @@ export default class App extends React.Component {
             Coveo Headless + Material UI
           </Typography>
         </Box>
-        <div>
+        <div className="tabbar-container">
           <Tab
             initialState={intelProps.initialState!}
             options={intelProps.options!}
@@ -42,6 +44,10 @@ export default class App extends React.Component {
           <Tab
             initialState={AMD_Props.initialState!}
             options={AMD_Props.options!}
+          />
+          <Tab
+            initialState={allProps.initialState!}
+            options={allProps.options!}
           />
         </div>
         <SearchBox />

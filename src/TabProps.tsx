@@ -16,6 +16,14 @@ const filterAMDProcessor = buildQueryExpression()
   })
   .toQuerySyntax();
 
+const noFilter = buildQueryExpression()
+  .addStringField({
+    field: "",
+    operator: "contains",
+    values: [""],
+  })
+  .toQuerySyntax();
+
 const intelOptions: TabOptions = {
   id: "Intel",
   expression: filterIntelProcessor,
@@ -26,6 +34,11 @@ const AMD_Options: TabOptions = {
   expression: filterAMDProcessor,
 };
 
+const allOptions: TabOptions = {
+  id: "All",
+  expression: noFilter,
+};
+
 export const intelProps: TabProps = {
   initialState: { isActive: false },
   options: intelOptions,
@@ -34,4 +47,9 @@ export const intelProps: TabProps = {
 export const AMD_Props: TabProps = {
   initialState: { isActive: false },
   options: AMD_Options,
+};
+
+export const allProps: TabProps = {
+  initialState: { isActive: false },
+  options: allOptions,
 };
