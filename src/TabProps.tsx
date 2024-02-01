@@ -18,9 +18,9 @@ const filterAMDProcessor = buildQueryExpression()
 
 const noFilter = buildQueryExpression()
   .addStringField({
-    field: "",
+    field: "store_name",
     operator: "contains",
-    values: [""],
+    values: ["Barca"],
   })
   .toQuerySyntax();
 
@@ -50,6 +50,6 @@ export const AMD_Props: TabProps = {
 };
 
 export const allProps: TabProps = {
-  initialState: { isActive: false },
+  initialState: { isActive: true },
   options: allOptions,
 };

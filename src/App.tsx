@@ -12,7 +12,6 @@ import Sort from "./Components/Sort";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import Tab from "./Components/Tab";
 import { intelProps, AMD_Props, allProps } from "./TabProps";
-import "./App.css";
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -36,7 +35,11 @@ export default class App extends React.Component {
             Coveo Headless + Material UI
           </Typography>
         </Box>
-        <div className="tabbar-container">
+        <div className="tabBar-container">
+          <Tab
+            initialState={allProps.initialState!}
+            options={allProps.options!}
+          />
           <Tab
             initialState={intelProps.initialState!}
             options={intelProps.options!}
@@ -44,10 +47,6 @@ export default class App extends React.Component {
           <Tab
             initialState={AMD_Props.initialState!}
             options={AMD_Props.options!}
-          />
-          <Tab
-            initialState={allProps.initialState!}
-            options={allProps.options!}
           />
         </div>
         <SearchBox />

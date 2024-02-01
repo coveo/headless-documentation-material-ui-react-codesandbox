@@ -21,7 +21,7 @@ export default class Tab extends React.Component<TabProps> {
   render() {
     return (
       <button
-        className="tabbar"
+        className="tabBar"
         disabled={this.headlessTab.state.isActive}
         onClick={() => {
           this.headlessTab.select();

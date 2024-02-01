@@ -1,15 +1,16 @@
- .tabbar {
+ .tabBar {
     height: 40px;
     width: 100px;
     background-color: white;
     font-size: large;
     margin: 0 10px 10px 0;
+    border-radius: 8px;
 }
 
-.tabbar:hover {
+.tabBar:hover {
     cursor: pointer;
 }
 
-.tabbar:disabled {
+.tabBar:disabled {
     cursor: default;
 }
