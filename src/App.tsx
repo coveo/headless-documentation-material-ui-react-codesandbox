@@ -24,7 +24,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Container maxWidth="xl">
-        <Box my={1}>
+        <Box my={3}>
           <Typography
             align="center"
             color="text.primary"
