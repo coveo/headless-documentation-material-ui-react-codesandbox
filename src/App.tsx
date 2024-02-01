@@ -55,7 +55,6 @@ export default class App extends React.Component {
           <Grid container>
             <Grid item xs={4}>
               <Facet title="Brand" field="ec_brand" />
-              <Facet title="Frequencies" field="eng_frequencies" />
               <Facet title="Processor" field="eng_processor" />
               <Facet title="Store name" field="store_name" />
             </Grid>
