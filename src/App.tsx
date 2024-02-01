@@ -10,8 +10,8 @@ import { loadSearchAnalyticsActions, loadSearchActions } from "@coveo/headless";
 import headlessEngine from "./Engine";
 import Sort from "./Components/Sort";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import Tab from "./Components/Tab";
-import { intelProps, AMD_Props, allProps } from "./TabProps";
+import Tab from "./Components/Tab/Tab";
+import { intelProps, AMD_Props, anyProps } from "./TabProps";
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -37,8 +37,8 @@ export default class App extends React.Component {
         </Box>
         <div className="tabBar-container">
           <Tab
-            initialState={allProps.initialState!}
-            options={allProps.options!}
+            initialState={anyProps.initialState!}
+            options={anyProps.options!}
           />
           <Tab
             initialState={intelProps.initialState!}

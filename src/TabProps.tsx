@@ -34,8 +34,8 @@ const AMD_Options: TabOptions = {
   expression: filterAMDProcessor,
 };
 
-const allOptions: TabOptions = {
-  id: "All",
+const anyOptions: TabOptions = {
+  id: "Any",
   expression: noFilter,
 };
 
@@ -49,7 +49,7 @@ export const AMD_Props: TabProps = {
   options: AMD_Options,
 };
 
-export const allProps: TabProps = {
+export const anyProps: TabProps = {
   initialState: { isActive: true },
-  options: allOptions,
+  options: anyOptions,
 };
