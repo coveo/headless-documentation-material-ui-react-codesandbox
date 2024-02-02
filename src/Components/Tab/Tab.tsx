@@ -8,7 +8,8 @@ import {
 } from "@coveo/headless";
 import React from "react";
 import "./Tab.css";
-export default class Tab extends React.Component<TabProps> {
+import Tab from "@mui/material/Tab";
+export default class TabBar extends React.Component<TabProps> {
   private headlessTab: HeadlessTab;
   constructor(props: any) {
     super(props);
@@ -26,15 +27,14 @@ export default class Tab extends React.Component<TabProps> {
 
   render() {
     return (
-      <button
-        className="tabBar"
+      <Tab
+        style={{ color: "blue" }}
         disabled={this.headlessTab.state.isActive}
         onClick={() => {
           this.headlessTab.select();
         }}
-      >
-        {this.props.options.id}
-      </button>
+        label={this.props.options.id}
+      />
     );
   }
 }
