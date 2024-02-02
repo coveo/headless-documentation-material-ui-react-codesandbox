@@ -1,4 +1,4 @@
-import headlessEngine from "../../Engine";
+import headlessEngine from "../Engine";
 import {
   buildTab,
   TabProps,
@@ -7,7 +7,6 @@ import {
   TabOptions,
 } from "@coveo/headless";
 import React from "react";
-import "./Tab.css";
 import Tab from "@mui/material/Tab";
 export default class TabBar extends React.Component<TabProps> {
   private headlessTab: HeadlessTab;

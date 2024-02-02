@@ -10,27 +10,16 @@ import { loadSearchAnalyticsActions, loadSearchActions } from "@coveo/headless";
 import headlessEngine from "./Engine";
 import Sort from "./Components/Sort";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import TabBar, { intelProps, Amd_Props, anyProps } from "./Components/Tab/Tab";
+import TabBar, { intelProps, Amd_Props, anyProps } from "./Components/Tab";
 import Tabs from "@mui/material/Tabs";
-// import Tab from "@mui/material/Tab";
-// import test from "./Test";
-// import Test from "./Test";
-import Tab from "@mui/material/Tab";
 
 export default class App extends React.Component<
   any,
   { currentTabIndex: number }
 > {
-  // currentTabIndex = 0;
-
   constructor(props: any) {
     super(props);
-    // this.setState({
-    //   currentTabIndex: 0,
-    // });
-    this.state = { currentTabIndex: 1 };
-    console.log(this.state.currentTabIndex);
-    console.log(3418952304956234);
+    this.state = { currentTabIndex: 0 };
   }
 
   componentDidMount() {
@@ -41,11 +30,9 @@ export default class App extends React.Component<
   }
 
   handleTabChange = (e: any, tabIndex: number) => {
-    // this.currentTabIndex = tabIndex;
     this.setState({
       currentTabIndex: tabIndex,
     });
-    console.log("index: ", this.state.currentTabIndex);
   };
 
   render() {
@@ -62,24 +49,7 @@ export default class App extends React.Component<
             Coveo Headless + Material UI
           </Typography>
         </Box>
-
-        <Tabs
-          value={this.state.currentTabIndex}
-          onChange={this.handleTabChange}
-        >
-          <Tab label="1" />
-          <Tab label="2" />
-        </Tabs>
-
-        <Tabs
-          value={this.state.currentTabIndex}
-          onChange={this.handleTabChange}
-        >
-          <Tab label="0" />
-          <Tab label="1" />
-          <Tab label="2" />
-          <Tab label="3" />
-
+        <Tabs onChange={this.handleTabChange}>
           <TabBar
             initialState={anyProps.initialState!}
             options={anyProps.options!}
