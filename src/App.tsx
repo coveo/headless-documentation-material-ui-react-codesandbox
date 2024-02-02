@@ -11,7 +11,7 @@ import headlessEngine from "./Engine";
 import Sort from "./Components/Sort";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import Tab from "./Components/Tab/Tab";
-import { intelProps, AMD_Props, anyProps } from "./TabProps";
+import { intelProps, Amd_Props, anyProps } from "./TabProps";
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -45,8 +45,8 @@ export default class App extends React.Component {
             options={intelProps.options!}
           />
           <Tab
-            initialState={AMD_Props.initialState!}
-            options={AMD_Props.options!}
+            initialState={Amd_Props.initialState!}
+            options={Amd_Props.options!}
           />
         </div>
         <SearchBox />
