@@ -10,8 +10,7 @@ import { loadSearchAnalyticsActions, loadSearchActions } from "@coveo/headless";
 import headlessEngine from "./Engine";
 import Sort from "./Components/Sort";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import Tab from "./Components/Tab/Tab";
-import { intelProps, Amd_Props, anyProps } from "./TabProps";
+import Tab, { intelProps, Amd_Props, anyProps } from "./Components/Tab/Tab";
 
 export default class App extends React.Component {
   componentDidMount() {
