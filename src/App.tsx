@@ -13,10 +13,7 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import TabBar, { intelProps, Amd_Props, anyProps } from "./Components/Tab";
 import Tabs from "@mui/material/Tabs";
 
-export default class App extends React.Component<
-  any,
-  { currentTabIndex: number }
-> {
+export default class App extends React.Component {
   constructor(props: any) {
     super(props);
     this.state = { currentTabIndex: 0 };
