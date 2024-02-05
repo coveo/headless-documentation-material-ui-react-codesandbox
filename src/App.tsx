@@ -10,7 +10,7 @@ import { loadSearchAnalyticsActions, loadSearchActions } from "@coveo/headless";
 import headlessEngine from "./Engine";
 import Sort from "./Components/Sort";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import TabBar, { intelProps, Amd_Props, anyProps } from "./Components/Tab";
+import Tab, { intelProps, Amd_Props, anyProps } from "./Components/Tab";
 import Tabs from "@mui/material/Tabs";
 
 export default class App extends React.Component {
@@ -47,15 +47,15 @@ export default class App extends React.Component {
           </Typography>
         </Box>
         <Tabs onChange={this.handleTabChange}>
-          <TabBar
+          <Tab
             initialState={anyProps.initialState!}
             options={anyProps.options!}
           />
-          <TabBar
+          <Tab
             initialState={intelProps.initialState!}
             options={intelProps.options!}
           />
-          <TabBar
+          <Tab
             initialState={Amd_Props.initialState!}
             options={Amd_Props.options!}
           />

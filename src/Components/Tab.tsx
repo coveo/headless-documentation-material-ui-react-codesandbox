@@ -7,8 +7,8 @@ import {
   TabOptions,
 } from "@coveo/headless";
 import React from "react";
-import Tab from "@mui/material/Tab";
-export default class TabBar extends React.Component<TabProps> {
+import { Tab as MaterialTab } from "@mui/material";
+export default class Tab extends React.Component<TabProps> {
   private headlessTab: HeadlessTab;
   constructor(props: any) {
     super(props);
@@ -26,7 +26,7 @@ export default class TabBar extends React.Component<TabProps> {
 
   render() {
     return (
-      <Tab
+      <MaterialTab
         style={{ color: "blue" }}
         disabled={this.headlessTab.state.isActive}
         onClick={() => {
