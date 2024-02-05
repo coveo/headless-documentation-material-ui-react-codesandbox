@@ -62,8 +62,8 @@ export default class App extends React.Component {
             options={intelProps.options!}
           />
           <Tab
-            initialState={Amd_Props.initialState!}
-            options={Amd_Props.options!}
+            initialState={amdProps.initialState!}
+            options={amdProps.options!}
           />
         </Tabs>
         <SearchBox />
@@ -132,7 +132,7 @@ const intelOptions: TabOptions = {
   expression: filterIntelProcessor,
 };
 
-const Amd_Options: TabOptions = {
+const amdOptions: TabOptions = {
   id: "AMD",
   expression: filterAmdProcessor,
 };
@@ -147,9 +147,9 @@ const intelProps: TabProps = {
   options: intelOptions,
 };
 
-const Amd_Props: TabProps = {
+const amdProps: TabProps = {
   initialState: { isActive: false },
-  options: Amd_Options,
+  options: amdOptions,
 };
 
 const anyProps: TabProps = {
