@@ -6,11 +6,17 @@ import Pager from "./Components/Pager";
 import Facet from "./Components/Facet";
 import ResultsPerPage from "./Components/ResultsPerPage";
 import FacetBreadcrumbs from "./Components/FacetBreadcrumbs";
-import { loadSearchAnalyticsActions, loadSearchActions } from "@coveo/headless";
+import {
+  loadSearchAnalyticsActions,
+  loadSearchActions,
+  buildQueryExpression,
+  TabOptions,
+  TabProps,
+} from "@coveo/headless";
 import headlessEngine from "./Engine";
 import Sort from "./Components/Sort";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import Tab, { intelProps, Amd_Props, anyProps } from "./Components/Tab";
+import Tab from "./Components/Tab";
 import Tabs from "@mui/material/Tabs";
 
 export default class App extends React.Component {
@@ -96,3 +102,57 @@ export default class App extends React.Component {
     );
   }
 }
+
+const filterIntelProcessor = buildQueryExpression()
+  .addStringField({
+    field: "eng_processor",
+    operator: "contains",
+    values: ["Intel"],
+  })
+  .toQuerySyntax();
+
+const filterAmdProcessor = buildQueryExpression()
+  .addStringField({
+    field: "eng_processor",
+    operator: "contains",
+    values: ["AMD"],
+  })
+  .toQuerySyntax();
+
+const noFilter = buildQueryExpression()
+  .addStringField({
+    field: "store_name",
+    operator: "contains",
+    values: ["Barca"],
+  })
+  .toQuerySyntax();
+
+const intelOptions: TabOptions = {
+  id: "Intel",
+  expression: filterIntelProcessor,
+};
+
+const Amd_Options: TabOptions = {
+  id: "AMD",
+  expression: filterAmdProcessor,
+};
+
+const anyOptions: TabOptions = {
+  id: "Any",
+  expression: noFilter,
+};
+
+const intelProps: TabProps = {
+  initialState: { isActive: false },
+  options: intelOptions,
+};
+
+const Amd_Props: TabProps = {
+  initialState: { isActive: false },
+  options: Amd_Options,
+};
+
+const anyProps: TabProps = {
+  initialState: { isActive: true },
+  options: anyOptions,
+};
