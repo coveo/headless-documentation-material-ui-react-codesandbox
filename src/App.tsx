@@ -6,18 +6,37 @@ import Pager from "./Components/Pager";
 import Facet from "./Components/Facet";
 import ResultsPerPage from "./Components/ResultsPerPage";
 import FacetBreadcrumbs from "./Components/FacetBreadcrumbs";
-import { loadSearchAnalyticsActions, loadSearchActions } from "@coveo/headless";
+import {
+  loadSearchAnalyticsActions,
+  loadSearchActions,
+  buildQueryExpression,
+  TabOptions,
+  TabProps,
+} from "@coveo/headless";
 import headlessEngine from "./Engine";
 import Sort from "./Components/Sort";
 import { Box, Container, Grid, Typography } from "@mui/material";
+import Tab from "./Components/Tab";
+import Tabs from "@mui/material/Tabs";
 
 export default class App extends React.Component {
+  constructor(props: any) {
+    super(props);
+    this.state = { currentTabIndex: 0 };
+  }
+
   componentDidMount() {
     const { logInterfaceLoad } = loadSearchAnalyticsActions(headlessEngine);
     const { executeSearch } = loadSearchActions(headlessEngine);
 
     headlessEngine.dispatch(executeSearch(logInterfaceLoad()));
   }
+
+  handleTabChange = (e: any, tabIndex: number) => {
+    this.setState({
+      currentTabIndex: tabIndex,
+    });
+  };
 
   render() {
     return (
@@ -33,14 +52,26 @@ export default class App extends React.Component {
             Coveo Headless + Material UI
           </Typography>
         </Box>
-
+        <Tabs onChange={this.handleTabChange}>
+          <Tab
+            initialState={anyProps.initialState!}
+            options={anyProps.options!}
+          />
+          <Tab
+            initialState={intelProps.initialState!}
+            options={intelProps.options!}
+          />
+          <Tab
+            initialState={amdProps.initialState!}
+            options={amdProps.options!}
+          />
+        </Tabs>
         <SearchBox />
         <Box my={1}>
           <FacetBreadcrumbs />
           <Grid container>
             <Grid item xs={4}>
               <Facet title="Brand" field="ec_brand" />
-              <Facet title="Frequencies" field="eng_frequencies" />
               <Facet title="Processor" field="eng_processor" />
               <Facet title="Store name" field="store_name" />
             </Grid>
@@ -71,3 +102,57 @@ export default class App extends React.Component {
     );
   }
 }
+
+const filterIntelProcessor = buildQueryExpression()
+  .addStringField({
+    field: "eng_processor",
+    operator: "contains",
+    values: ["Intel"],
+  })
+  .toQuerySyntax();
+
+const filterAmdProcessor = buildQueryExpression()
+  .addStringField({
+    field: "eng_processor",
+    operator: "contains",
+    values: ["AMD"],
+  })
+  .toQuerySyntax();
+
+const noFilter = buildQueryExpression()
+  .addStringField({
+    field: "store_name",
+    operator: "contains",
+    values: ["Barca"],
+  })
+  .toQuerySyntax();
+
+const intelOptions: TabOptions = {
+  id: "Intel",
+  expression: filterIntelProcessor,
+};
+
+const amdOptions: TabOptions = {
+  id: "AMD",
+  expression: filterAmdProcessor,
+};
+
+const anyOptions: TabOptions = {
+  id: "Any",
+  expression: noFilter,
+};
+
+const intelProps: TabProps = {
+  initialState: { isActive: false },
+  options: intelOptions,
+};
+
+const amdProps: TabProps = {
+  initialState: { isActive: false },
+  options: amdOptions,
+};
+
+const anyProps: TabProps = {
+  initialState: { isActive: true },
+  options: anyOptions,
+};

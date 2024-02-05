@@ -34,7 +34,7 @@ export default class Facet extends React.Component<IFacetProps, {}> {
 
     this.headlessFacet = buildFacet(headlessEngine, {
       options: {
-        numberOfValues: 5,
+        numberOfValues: 3,
         field: this.props.field,
       },
     });
