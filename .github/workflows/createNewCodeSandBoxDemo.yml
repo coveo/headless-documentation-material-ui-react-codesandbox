@@ -10,16 +10,13 @@ jobs:
         uses: ruby/setup-ruby@ee26e27437bde475b19a6bf8cb73c9fa658876a2
         with:
           ruby-version: '3.1.2'
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Make a new Branch for version
-        uses: peterjgrainger/action-create-branch@b48b0ca0e307c9b56f059b70274984ffeaa90a43
+        run: |
+          git checkout -b "version-${{ github.event.client_payload.headless_version }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          branch: "version-${{ github.event.client_payload.headless_version }}"
-      - name: Checkout new branch
-        uses: actions/checkout@v3
-        with:
-          ref: version-${{ github.event.client_payload.headless_version }}
       - name: Run script to update package.json on new branch
         run: |
           cd .github/scripts
@@ -30,5 +27,4 @@ jobs:
           git status
           git add package.json
           git commit -m "update package to version ${{ github.event.client_payload.headless_version }}"
-          git push
-          
+          git push --set-upstream origin "version-${{ github.event.client_payload.headless_version }}"
