@@ -4,7 +4,7 @@ on:
     types: [headless_docs_generated]
 jobs:
   create-new-demo:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu22
     steps:
       - name: Setup Ruby in runner
         uses: ruby/setup-ruby@ee26e27437bde475b19a6bf8cb73c9fa658876a2
