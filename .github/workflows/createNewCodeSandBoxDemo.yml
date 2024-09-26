@@ -4,12 +4,14 @@ on:
     types: [headless_docs_generated]
 jobs:
   create-new-demo:
-    runs-on: ubuntu22
+    runs-on: [coveo, linux, x64, ec2] # run on self hosted Coveo ec2 machines
     steps:
       - name: Setup Ruby in runner
         uses: ruby/setup-ruby@ee26e27437bde475b19a6bf8cb73c9fa658876a2
         with:
           ruby-version: '3.1.2'
+        env:
+          ImageOS: ubuntu22
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Make a new Branch for version
