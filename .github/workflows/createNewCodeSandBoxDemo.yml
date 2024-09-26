@@ -4,7 +4,7 @@ on:
     types: [headless_docs_generated]
 jobs:
   create-new-demo:
-    runs-on: [coveo, linux, x64, ec2] # run on self hosted Coveo ec2 machines
+    runs-on: ubuntu-latest
     steps:
       - name: Setup Ruby in runner
         uses: ruby/setup-ruby@ee26e27437bde475b19a6bf8cb73c9fa658876a2
