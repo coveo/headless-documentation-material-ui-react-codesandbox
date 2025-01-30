@@ -6,6 +6,11 @@ jobs:
   create-new-demo:
     runs-on: ubuntu-latest
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - name: Setup Ruby in runner
         uses: ruby/setup-ruby@ee26e27437bde475b19a6bf8cb73c9fa658876a2
         with:
