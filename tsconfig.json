@@ -1,11 +1,21 @@
 {
-  "include": ["./src/*"],
+  "include": ["src"],
   "compilerOptions": {
-    "strict": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
     "moduleResolution": "Node",
-    "target": "ES6",
-    "lib": ["dom", "es2015"],
-    "jsx": "react"
-  }
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
