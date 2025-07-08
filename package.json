@@ -10,7 +10,7 @@
     "@coveo/headless": "3.27.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@fontsource/roboto": "^4.5.8",
+    "@fontsource/roboto": "^5.0.0",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.12",
     "react": "^18.2.0",
