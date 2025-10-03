@@ -1,7 +1,17 @@
 name: Create New CodeSandBoxDemo
 on:
+  workflow_dispatch:
+    inputs:
+      HEADLESS_VERSION:
+        description: 'Headless version to update to'
+        required: true
+        default: ''
   repository_dispatch:
     types: [headless_docs_generated]
+
+env:
+  HEADLESS_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.HEADLESS_VERSION || github.event.inputs.HEADLESS_VERSION }}
+
 jobs:
   create-new-demo:
     runs-on: ubuntu-latest
@@ -21,17 +31,17 @@ jobs:
         uses: actions/checkout@v4
       - name: Make a new Branch for version
         run: |
-          git checkout -b "version-${{ github.event.client_payload.headless_version }}"
+          git checkout -b "version-${{ env.HEADLESS_VERSION }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run script to update package.json on new branch
         run: |
           cd .github/scripts
-          ruby update_package.rb ${{ github.event.client_payload.headless_version }}
+          ruby update_package.rb ${{ env.HEADLESS_VERSION }}
           cd ../..
           git config user.name ${{ secrets.AUTHOR }}
           git config user.email ${{ secrets.AUTHOR_EMAIL }}
           git status
           git add package.json
-          git commit -m "update package to version ${{ github.event.client_payload.headless_version }}"
-          git push --set-upstream origin "version-${{ github.event.client_payload.headless_version }}"
+          git commit -m "update package to version ${{ env.HEADLESS_VERSION }}"
+          git push --set-upstream origin "version-${{ env.HEADLESS_VERSION }}"
