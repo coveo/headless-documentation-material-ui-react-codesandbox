@@ -5,7 +5,7 @@ on:
       HEADLESS_VERSION:
         description: 'Headless version to update to'
         required: true
-        default: '1.0.0'
+        default: ''
   repository_dispatch:
     types: [headless_docs_generated]
 
