@@ -11,7 +11,6 @@ on:
 
 env:
   HEADLESS_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.HEADLESS_VERSION || github.event.inputs.HEADLESS_VERSION }}
-  PAYLOAD: ${{ github.event_name == 'repository_dispatch' && toJson(github.event.client_payload) || github.event.inputs.HEADLESS_VERSION }}
 jobs:
   create-new-demo:
     runs-on: ubuntu-latest
