@@ -7,7 +7,7 @@
   ],
   "main": "src/index.tsx",
   "dependencies": {
-    "@coveo/headless": "3.27.0",
+    "@coveo/headless": "3.35.4",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fontsource/roboto": "^5.0.0",
