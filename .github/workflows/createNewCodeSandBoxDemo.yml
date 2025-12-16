@@ -28,7 +28,7 @@ jobs:
         env:
           ImageOS: ubuntu22
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Make a new Branch for version
         run: |
           git checkout -b "version-${{ env.HEADLESS_VERSION }}"
