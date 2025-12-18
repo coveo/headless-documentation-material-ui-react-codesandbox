@@ -24,7 +24,7 @@ jobs:
       - name: Setup Ruby in runner
         uses: ruby/setup-ruby@ee26e27437bde475b19a6bf8cb73c9fa658876a2
         with:
-          ruby-version: '3.4.7'
+          ruby-version: '3.2.0'
         env:
           ImageOS: ubuntu22
       - name: Checkout code
