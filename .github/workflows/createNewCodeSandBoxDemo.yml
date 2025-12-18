@@ -14,7 +14,7 @@ env:
 
 jobs:
   create-new-demo:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@df199fb7be9f65074067a9eb93f12bb4c5547cf2 # v2.13.3
@@ -24,9 +24,9 @@ jobs:
       - name: Setup Ruby in runner
         uses: ruby/setup-ruby@ee26e27437bde475b19a6bf8cb73c9fa658876a2
         with:
-          ruby-version: '3.4.7'
+          ruby-version: '3.2.0'
         env:
-          ImageOS: ubuntu24
+          ImageOS: ubuntu22
       - name: Checkout code
         uses: actions/checkout@v6
       - name: Make a new Branch for version
