@@ -121,9 +121,9 @@ const filterAmdProcessor = buildQueryExpression()
 
 const noFilter = buildQueryExpression()
   .addStringField({
-    field: "store_name",
+    field: "eng_processor",
     operator: "contains",
-    values: ["Barca"],
+    values: ["Intel", "AMD"],
   })
   .toQuerySyntax();
 
