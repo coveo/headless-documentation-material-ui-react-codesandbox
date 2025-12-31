@@ -69,28 +69,28 @@ export default class App extends React.Component {
         <SearchBox />
         <Box my={1}>
           <FacetBreadcrumbs />
-          <Grid container>
-            <Grid item xs={4}>
+          <Grid container spacing={2}>
+            <Grid size={4}>
               <Facet title="Brand" field="ec_brand" />
               <Facet title="Processor" field="eng_processor" />
               <Facet title="Store name" field="store_name" />
             </Grid>
-            <Grid item xs={8}>
+            <Grid size={8}>
               <Grid container my={3} alignItems="center">
-                <Grid item xs={8}>
+                <Grid size={8}>
                   <QuerySummary />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid size={4}>
                   <Sort />
                 </Grid>
               </Grid>
               <ResultList />
               <Box my={4}>
                 <Grid container alignItems="center">
-                  <Grid item xs={6}>
+                  <Grid size={6}>
                     <Pager />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid size={6}>
                     <ResultsPerPage />
                   </Grid>
                 </Grid>

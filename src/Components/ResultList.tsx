@@ -54,11 +54,9 @@ export default class ResultList extends React.Component {
         {this.state.results.map((result: Result) => {
           return (
             <Grid
-              item
-              xs={4}
-              display="grid"
-              alignItems="stretch"
               key={result.uniqueId}
+              size={4}
+              display="grid"
             >
               <Card>
                 <CardMedia
