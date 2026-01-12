@@ -24,9 +24,9 @@ jobs:
           egress-policy: audit
 
       - name: Setup Ruby in runner
-        uses: ruby/setup-ruby@ee26e27437bde475b19a6bf8cb73c9fa658876a2
+        uses: ruby/setup-ruby@d5f787ce339eb0767271bc01d922e85644c2c8ab
         with:
-          ruby-version: '3.2.0'
+          ruby-version: '4.0.0'
         env:
           ImageOS: ubuntu22
       - name: Checkout code
