@@ -25,7 +25,7 @@ export default class ResultList extends React.Component {
 
     this.headlessResultList = buildResultList(headlessEngine, {
       options: {
-        fieldsToInclude: ["ec_image", "ec_price", "ec_rating"],
+        fieldsToInclude: ["ec_images", "ec_price", "ec_rating"],
       },
     });
 
@@ -62,7 +62,7 @@ export default class ResultList extends React.Component {
                 <CardMedia
                   component="img"
                   height="140"
-                  image={`${result.raw.ec_image!}`}
+                  image={Array.isArray(result.raw.ec_images) ? result.raw.ec_images[0] : (result.raw.ec_images as string) || ''}
                 />
                 <CardContent>
                   <Typography variant="h5">

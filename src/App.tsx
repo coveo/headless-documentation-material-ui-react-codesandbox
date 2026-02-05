@@ -52,18 +52,18 @@ export default class App extends React.Component {
             Coveo Headless + Material UI
           </Typography>
         </Box>
-        <Tabs onChange={this.handleTabChange}>
+        <Tabs value={(this.state as any).currentTabIndex} onChange={this.handleTabChange}>
           <Tab
-            initialState={anyProps.initialState!}
-            options={anyProps.options!}
+            initialState={allProps.initialState!}
+            options={allProps.options!}
           />
           <Tab
-            initialState={intelProps.initialState!}
-            options={intelProps.options!}
+            initialState={accessoriesProps.initialState!}
+            options={accessoriesProps.options!}
           />
           <Tab
-            initialState={amdProps.initialState!}
-            options={amdProps.options!}
+            initialState={skisBoardsProps.initialState!}
+            options={skisBoardsProps.options!}
           />
         </Tabs>
         <SearchBox />
@@ -72,8 +72,8 @@ export default class App extends React.Component {
           <Grid container spacing={2}>
             <Grid size={4}>
               <Facet title="Brand" field="ec_brand" />
-              <Facet title="Processor" field="eng_processor" />
-              <Facet title="Store name" field="store_name" />
+              <Facet title="Color" field="ec_colors" />
+              <Facet title="Category" field="ec_category" />
             </Grid>
             <Grid size={8}>
               <Grid container my={3} alignItems="center">
@@ -103,56 +103,50 @@ export default class App extends React.Component {
   }
 }
 
-const filterIntelProcessor = buildQueryExpression()
+const filterAccessories = buildQueryExpression()
   .addStringField({
-    field: "eng_processor",
+    field: "ec_category",
     operator: "contains",
-    values: ["Intel"],
+    values: ["Accessories"],
   })
   .toQuerySyntax();
 
-const filterAmdProcessor = buildQueryExpression()
+const filterSkisBoards = buildQueryExpression()
   .addStringField({
-    field: "eng_processor",
+    field: "ec_category",
     operator: "contains",
-    values: ["AMD"],
+    values: ["Skis"],
   })
   .toQuerySyntax();
 
-const noFilter = buildQueryExpression()
-  .addStringField({
-    field: "eng_processor",
-    operator: "contains",
-    values: ["Intel", "AMD"],
-  })
-  .toQuerySyntax();
+const noFilter = "";
 
-const intelOptions: TabOptions = {
-  id: "Intel",
-  expression: filterIntelProcessor,
+const accessoriesOptions: TabOptions = {
+  id: "Accessories",
+  expression: filterAccessories,
 };
 
-const amdOptions: TabOptions = {
-  id: "AMD",
-  expression: filterAmdProcessor,
+const skisBoardsOptions: TabOptions = {
+  id: "Skis & Boards",
+  expression: filterSkisBoards,
 };
 
-const anyOptions: TabOptions = {
-  id: "Any",
+const allOptions: TabOptions = {
+  id: "All",
   expression: noFilter,
 };
 
-const intelProps: TabProps = {
+const accessoriesProps: TabProps = {
   initialState: { isActive: false },
-  options: intelOptions,
+  options: accessoriesOptions,
 };
 
-const amdProps: TabProps = {
+const skisBoardsProps: TabProps = {
   initialState: { isActive: false },
-  options: amdOptions,
+  options: skisBoardsOptions,
 };
 
-const anyProps: TabProps = {
+const allProps: TabProps = {
   initialState: { isActive: true },
-  options: anyOptions,
+  options: allOptions,
 };

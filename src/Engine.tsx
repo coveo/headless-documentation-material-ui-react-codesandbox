@@ -1,4 +1,4 @@
-import { buildSearchEngine, buildContext } from "@coveo/headless";
+import { buildSearchEngine } from "@coveo/headless";
 
 const headlessEngine = buildSearchEngine({
   configuration: {
@@ -6,7 +6,5 @@ const headlessEngine = buildSearchEngine({
     accessToken: "xx5a7943ef-ea52-42e5-8742-51198cc651f7"
   },
 });
-
-buildContext(headlessEngine).add("website", "engineering");
 
 export default headlessEngine;
