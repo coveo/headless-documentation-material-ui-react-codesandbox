@@ -122,7 +122,7 @@ const filterSkisBoards = buildQueryExpression()
   .addStringField({
     field: "ec_category",
     operator: "contains",
-    values: ["Skis"],
+    values: ["Skis", "Boards"],
   })
   .toQuerySyntax();
 
