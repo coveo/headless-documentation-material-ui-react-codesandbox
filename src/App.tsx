@@ -19,11 +19,12 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import Tab from "./Components/Tab";
 import Tabs from "@mui/material/Tabs";
 
-export default class App extends React.Component {
-  constructor(props: any) {
-    super(props);
-    this.state = { currentTabIndex: 0 };
-  }
+type AppState = {
+  currentTabIndex: number;
+};
+
+export default class App extends React.Component<{}, AppState> {
+  state: AppState = { currentTabIndex: 0 };
 
   componentDidMount() {
     const { logInterfaceLoad } = loadSearchAnalyticsActions(headlessEngine);
@@ -31,12 +32,6 @@ export default class App extends React.Component {
 
     headlessEngine.dispatch(executeSearch(logInterfaceLoad()));
   }
-
-  handleTabChange = (e: any, tabIndex: number) => {
-    this.setState({
-      currentTabIndex: tabIndex,
-    });
-  };
 
   handleTabSelect = (tabIndex: number) => {
     this.setState({
@@ -58,7 +53,7 @@ export default class App extends React.Component {
             Coveo Headless + Material UI
           </Typography>
         </Box>
-        <Tabs value={(this.state as any).currentTabIndex} onChange={this.handleTabChange}>
+        <Tabs value={this.state.currentTabIndex}>
           <Tab
             initialState={allProps.initialState!}
             options={allProps.options!}
