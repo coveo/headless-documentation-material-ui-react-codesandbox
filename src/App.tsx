@@ -38,6 +38,12 @@ export default class App extends React.Component {
     });
   };
 
+  handleTabSelect = (tabIndex: number) => {
+    this.setState({
+      currentTabIndex: tabIndex,
+    });
+  };
+
   render() {
     return (
       <Container maxWidth="xl">
@@ -56,14 +62,20 @@ export default class App extends React.Component {
           <Tab
             initialState={allProps.initialState!}
             options={allProps.options!}
+            value={0}
+            onTabSelect={this.handleTabSelect}
           />
           <Tab
             initialState={accessoriesProps.initialState!}
             options={accessoriesProps.options!}
+            value={1}
+            onTabSelect={this.handleTabSelect}
           />
           <Tab
             initialState={skisBoardsProps.initialState!}
             options={skisBoardsProps.options!}
+            value={2}
+            onTabSelect={this.handleTabSelect}
           />
         </Tabs>
         <SearchBox />

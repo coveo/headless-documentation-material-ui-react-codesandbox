@@ -1,10 +1,17 @@
 import headlessEngine from "../Engine";
-import { buildTab, TabProps, Tab as HeadlessTab } from "@coveo/headless";
+import { buildTab, TabProps, Tab as HeadlessTab, TabState } from "@coveo/headless";
 import React from "react";
 import { Tab as MaterialTab } from "@mui/material";
-export default class Tab extends React.Component<TabProps> {
+
+interface CoveoTabProps extends TabProps {
+  value: number;
+  onTabSelect: (index: number) => void;
+}
+
+export default class Tab extends React.Component<CoveoTabProps, TabState> {
   private headlessTab: HeadlessTab;
-  constructor(props: any) {
+
+  constructor(props: CoveoTabProps) {
     super(props);
     this.headlessTab = buildTab(headlessEngine, props);
     this.state = this.headlessTab.state;
@@ -18,15 +25,18 @@ export default class Tab extends React.Component<TabProps> {
     this.setState(this.headlessTab.state);
   }
 
+  handleClick = () => {
+    this.headlessTab.select();
+    this.props.onTabSelect(this.props.value);
+  };
+
   render() {
     return (
       <MaterialTab
         style={{ color: "blue" }}
-        disabled={this.headlessTab.state.isActive}
-        onClick={() => {
-          this.headlessTab.select();
-        }}
+        onClick={this.handleClick}
         label={this.props.options.id}
+        value={this.props.value}
       />
     );
   }
