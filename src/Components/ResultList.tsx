@@ -62,7 +62,11 @@ export default class ResultList extends React.Component {
                 <CardMedia
                   component="img"
                   height="140"
-                  image={Array.isArray(result.raw.ec_images) ? result.raw.ec_images[0] : (result.raw.ec_images as string) || ''}
+                  image={
+                    Array.isArray(result.raw.ec_images)
+                      ? (result.raw.ec_images.length > 0 ? result.raw.ec_images[0] : '')
+                      : ((result.raw.ec_images as string) || '')
+                  }
                 />
                 <CardContent>
                   <Typography variant="h5">
