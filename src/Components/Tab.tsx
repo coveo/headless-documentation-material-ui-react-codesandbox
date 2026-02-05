@@ -31,9 +31,11 @@ export default class Tab extends React.Component<CoveoTabProps, TabState> {
   };
 
   render() {
+    const isActive = this.headlessTab.state.isActive;
     return (
       <MaterialTab
         style={{ color: "blue" }}
+        disabled={isActive}
         onClick={this.handleClick}
         label={this.props.options.id}
         value={this.props.value}
