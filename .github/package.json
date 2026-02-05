@@ -7,7 +7,7 @@
   ],
   "main": "src/index.tsx",
   "dependencies": {
-    "@coveo/headless": "3.39.0",
+    "@coveo/headless": "3.41.1",
     "@mui/icons-material": "7.3.6",
     "@mui/material": "7.3.6",
     "@material-ui/lab": "4.0.0-alpha.61",
