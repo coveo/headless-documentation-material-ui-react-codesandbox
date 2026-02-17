@@ -7,7 +7,7 @@
   ],
   "main": "src/index.tsx",
   "dependencies": {
-    "@coveo/headless": "3.41.1",
+    "@coveo/headless": "3.42.1",
     "@mui/icons-material": "7.3.6",
     "@mui/material": "7.3.6",
     "@material-ui/lab": "4.0.0-alpha.61",
@@ -18,7 +18,7 @@
     "react-scripts": "5.0.1"
   },
   "devDependencies": {
-    "@types/react": "19.2.11",
+    "@types/react": "19.2.13",
     "@types/react-dom": "19.2.3",
     "typescript": "5.9.3"
   },
