@@ -1,13 +1,11 @@
 {
-  "name": "coveo-headless-3270",
+  "name": "coveo-headless-3440",
   "version": "1.0.0",
   "description": "",
-  "keywords": [
-
-  ],
+  "keywords": [],
   "main": "src/index.tsx",
   "dependencies": {
-    "@coveo/headless": "3.42.1",
+    "@coveo/headless": "3.44.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fontsource/roboto": "^5.0.0",
