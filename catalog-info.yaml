@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: headless-documentation-material-ui-react-codesandbox
+
+  annotations:
+    github.com/project-slug: coveo/headless-documentation-material-ui-react-codesandbox
+
+spec:
+  type: website
+  lifecycle: experimental
+  owner: dev-docs
