@@ -19,14 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@58077d3c7e43986b6b15fba718e8ea69e387dfcc # v2.15.1
+        uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594 # v2.16.0
         with:
           egress-policy: audit
 
       - name: Setup Ruby in runner
         uses: ruby/setup-ruby@d5f787ce339eb0767271bc01d922e85644c2c8ab
         with:
-          ruby-version: '4.0.0'
+          ruby-version: '4.0.2'
         env:
           ImageOS: ubuntu22
       - name: Checkout code
