@@ -59,15 +59,18 @@ export default class ResultList extends React.Component {
               display="grid"
             >
               <Card>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={
-                    Array.isArray(result.raw.ec_images)
-                      ? (result.raw.ec_images.length > 0 ? result.raw.ec_images[0] : '')
-                      : ((result.raw.ec_images as string) || '')
-                  }
-                />
+                {(() => {
+                  const imgSrc = Array.isArray(result.raw.ec_images)
+                    ? (result.raw.ec_images.length > 0 ? result.raw.ec_images[0] : '')
+                    : ((result.raw.ec_images as string) || '');
+                  return imgSrc ? (
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={imgSrc}
+                    />
+                  ) : null;
+                })()}
                 <CardContent>
                   <Typography variant="h5">
                     {<ResultLink result={result} />}
@@ -75,13 +78,17 @@ export default class ResultList extends React.Component {
                   <Typography variant="body2" color="text.secondary">
                     {result.excerpt}
                   </Typography>
-                  <Typography variant="h6" color="text.primary">
-                    {formatter.format(result.raw.ec_price as number)}
-                  </Typography>
-                  <Rating
-                    value={Math.round(result.raw.ec_rating as number)}
-                    readOnly
-                  />
+                  {result.raw.ec_price != null && !isNaN(Number(result.raw.ec_price)) && (
+                    <Typography variant="h6" color="text.primary">
+                      {formatter.format(result.raw.ec_price as number)}
+                    </Typography>
+                  )}
+                  {result.raw.ec_rating != null && !isNaN(Number(result.raw.ec_rating)) && (
+                    <Rating
+                      value={Math.round(result.raw.ec_rating as number)}
+                      readOnly
+                    />
+                  )}
                 </CardContent>
               </Card>
             </Grid>
