@@ -5,8 +5,9 @@ metadata:
 
   annotations:
     github.com/project-slug: coveo/headless-documentation-material-ui-react-codesandbox
+    snyk.io/org-id: f2daa816-d913-4fbb-b8b4-17aa4d8fb588
 
 spec:
   type: website
   lifecycle: experimental
-  owner: dev-docs
+  owner: doc-ops
