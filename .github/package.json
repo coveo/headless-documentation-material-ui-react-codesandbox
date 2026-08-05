@@ -8,8 +8,8 @@
   "main": "src/index.tsx",
   "dependencies": {
     "@coveo/headless": "3.51.1",
-    "@mui/icons-material": "9.0.0",
-    "@mui/material": "9.0.0",
+    "@mui/icons-material": "9.0.1",
+    "@mui/material": "9.0.1",
     "@material-ui/lab": "4.0.0-alpha.61",
     "cross-fetch": "4.1.0",
     "react": "^19.0.0",
