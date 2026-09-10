@@ -18,8 +18,8 @@
     "react-scripts": "5.0.1"
   },
   "devDependencies": {
-    "@types/react": "19.2.15",
-    "@types/react-dom": "19.2.3",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
     "typescript": "6.0.3"
   },
   "scripts": {
